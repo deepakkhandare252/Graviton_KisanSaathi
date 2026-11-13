@@ -79,6 +79,16 @@ app.use(
   }
 );
 
+app.use('/api/schemes', (req, res, next) => {
+  if (req.method === 'GET') {
+    res.on('finish', () => {
+      const cacheResult = res.statusCode === 304 ? 'HIT' : 'MISS';
+      console.info(`[cache] ${cacheResult} ${req.path} status=${res.statusCode}`);
+    });
+  }
+  next();
+});
+
 // Optional Gemini instance for grounded explanations (Backend only)
 const geminiApiKey = process.env.GEMINI_API_KEY;
 let aiClient: GoogleGenAI | null = null;
@@ -907,7 +917,7 @@ app.get('/api/schemes', (req, res) => {
     schemes = schemes.filter((s) => s.category.toLowerCase() === categoryFilter.toLowerCase());
   }
 
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
   res.json({
     schemes,
     total: schemes.length,
@@ -921,7 +931,7 @@ app.get('/api/schemes/:id', (req, res) => {
   if (!scheme) {
     return res.status(404).json({ error: 'Scheme not found', schemeId: req.params.id });
   }
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
   res.json(scheme);
 });
 
@@ -956,7 +966,7 @@ app.get('/api/schemes/:id/checklist', (req, res) => {
   if (!scheme) {
     return res.status(404).json({ error: 'Scheme not found' });
   }
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
   res.json({
     schemeId: scheme.id,
     schemeNameEn: scheme.nameEn,
@@ -970,7 +980,7 @@ app.get('/api/schemes/:id/application-guide', (req, res) => {
   if (!scheme) {
     return res.status(404).json({ error: 'Scheme not found' });
   }
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+  res.setHeader('Cache-Control', 'public, max-age=300, must-revalidate');
   res.json({
     schemeId: scheme.id,
     schemeNameEn: scheme.nameEn,
@@ -1083,9 +1093,29 @@ async function startServer() {
   });
 
   if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'dist')));
+    const distPath = path.resolve(__dirname, 'dist');
+    app.use(
+      express.static(distPath, {
+        etag: true,
+        lastModified: true,
+        setHeaders(res, filePath) {
+          const relativePath = path.relative(distPath, filePath).split(path.sep).join('/');
+          if (relativePath === 'index.html') {
+            res.setHeader('Cache-Control', 'no-cache');
+          } else if (
+            relativePath.startsWith('assets/') &&
+            /-[a-z0-9_-]{8,}\.(?:js|css|woff2?|png|jpe?g|webp|svg|ico)$/i.test(relativePath)
+          ) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          } else {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+          }
+        }
+      })
+    );
     app.get('*', (_req, res) => {
-      res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+      res.setHeader('Cache-Control', 'no-cache');
+      res.sendFile(path.join(distPath, 'index.html'));
     });
   } else {
     const vite = await createViteServer({

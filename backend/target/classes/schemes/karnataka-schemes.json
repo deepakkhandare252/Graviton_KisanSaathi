@@ -1,0 +1,1113 @@
+[
+  {
+    "id": "pm-kisan-raitha-siri",
+    "nameEn": "PM-KISAN Samman Nidhi & Karnataka Raitha Siri",
+    "nameKn": "ಪಿಎಂ-ಕಿಸಾನ್ ಸಮ್ಮಾನ್ ನಿಧಿ ಮತ್ತು ಕರ್ನಾಟಕ ರೈತ ಸಿರಿ ಯೋಜನೆ",
+    "taglineEn": "₹10,000 Annual Direct Income Support for Cultivable Landholding Families",
+    "taglineKn": "ಕೃಷಿ ಭೂಮಿ ಹೊಂದಿರುವ ಕುಟುಂಬಗಳಿಗೆ ವಾರ್ಷಿಕ ₹10,000 ನೇರ ಆದಾಯ ಬೆಂಬಲ",
+    "departmentEn": "Department of Agriculture, Govt. of Karnataka / MoA&FW, GoI",
+    "departmentKn": "ಕೃಷಿ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ / ಭಾರತ ಸರ್ಕಾರ",
+    "category": "Direct Financial Support",
+    "categoryKn": "ನೇರ ಹಣಕಾಸು ನೆರವು",
+    "financialBenefitEn": "₹10,000 annually per landholding family (₹6,000 via PM-KISAN Central DBT in 3 installments of ₹2,000 each + ₹4,000 Karnataka State bonus DBT directly to Aadhaar-seeded bank account).",
+    "financialBenefitKn": "ಭೂಮಿ ಹೊಂದಿರುವ ಕುಟುಂಬಕ್ಕೆ ವಾರ್ಷಿಕ ₹10,000 (ಕೇಂದ್ರದಿಂದ ₹6,000 + ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ₹4,000 ನೇರವಾಗಿ ಆಧಾರ್ ಜೋಡಿತ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ).",
+    "officialPortalUrl": "https://fruits.karnataka.gov.in",
+    "informationUrl": "https://pmkisan.gov.in",
+    "lastVerifiedDate": "2026-10-15",
+    "rulesVersion": "2026.3-KN-REV",
+    "applicationDeadline": null,
+    "deadlineType": "ROLLING_OPEN",
+    "deadlineVerified": false,
+    "deadlineNoteEn": "Year-round enrollment via Karnataka FRUITS ID; KYC & seasonal installment verification cycles apply.",
+    "deadlineNoteKn": "ಫ್ರೂಟ್ಸ್ ಐಡಿ ಮೂಲಕ ವರ್ಷಪೂರ್ತಿ ನೋಂದಣಿ ಮುಕ್ತವಾಗಿದೆ; ಹಂಗಾಮು ಕಂತುಗಳ ಇ-ಕೆವೈಸಿ ಪರಿಶೀಲನೆ ಅನ್ವಯಿಸುತ್ತದೆ.",
+    "conditions": [
+      {
+        "id": "cond_state_kn",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident Farmer",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ ರೈತ",
+        "descriptionEn": "The beneficiary must reside in Karnataka and cultivate agricultural land in Karnataka.",
+        "descriptionKn": "ಫಲಾನುಭವಿಯು ಕರ್ನಾಟಕದಲ್ಲಿ ಕೃಷಿ ಭೂಮಿಯನ್ನು ಹೊಂದಿರಬೇಕು ಮತ್ತು ನಿವಾಸಿಯಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "cond_land_ownership",
+        "field": "hasLandOwnership",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Cultivable Agricultural Land Ownership",
+        "titleKn": "ಕೃಷಿ ಯೋಗ್ಯ ಭೂಮಿ ಮಾಲೀಕತ್ವ",
+        "descriptionEn": "Farmer family must hold valid land records (RTC / Pahani) registered in the Karnataka Bhoomi portal.",
+        "descriptionKn": "ಭೂಮಿ ತಂತ್ರಾಂಶದಲ್ಲಿ ನಮೂದಾದ ಚಾಲ್ತಿ ಆರ್.ಟಿ.ಸಿ (ಪಹಣಿ) ಪತ್ರ ಇರಬೇಕು."
+      },
+      {
+        "id": "excl_institutional",
+        "field": "isInstitutionalLandholder",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Institutional Landholders",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ಸಾಂಸ್ಥಿಕ ಭೂಮಾಲೀಕರು",
+        "descriptionEn": "Institutions, trusts, companies, and organizations holding agricultural land are strictly excluded.",
+        "descriptionKn": "ಟ್ರಸ್ಟ್‌ಗಳು, ಕಂಪನಿಗಳು ಅಥವಾ ಸಂಸ್ಥೆಗಳ ಹೆಸರಿನಲ್ಲಿರುವ ಭೂಮಿಗೆ ಇದು ಅನ್ವಯಿಸುವುದಿಲ್ಲ."
+      },
+      {
+        "id": "excl_constitutional",
+        "field": "isConstitutionalPostHolder",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Constitutional Post Holders",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ಸಂವಿಧಾನಿಕ ಹುದ್ದೆ ಹೊಂದಿರುವವರು",
+        "descriptionEn": "Former and present Ministers, MPs, MLAs, MLCs, Mayors, and Zilla Panchayat Presidents are ineligible.",
+        "descriptionKn": "ಹಾಲಿ/ಮಾಜಿ ಸಚಿವರು, ಸಂಸದರು, ಶಾಸಕರು ಮತ್ತು ಜಿ.ಪಂ. ಅಧ್ಯಕ್ಷರು ಅನರ್ಹರು."
+      },
+      {
+        "id": "excl_tax_payer",
+        "field": "isIncomeTaxPayee",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Income Tax Payee",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ಆದಾಯ ತೆರಿಗೆ ಪಾವತಿದಾರರು",
+        "descriptionEn": "Beneficiary or spouse who paid income tax in the previous assessment year is excluded.",
+        "descriptionKn": "ಕಳೆದ ಮೌಲ್ಯಮಾಪನ ವರ್ಷದಲ್ಲಿ ಆದಾಯ ತೆರಿಗೆ ಪಾವತಿಸಿದವರು ಈ ಯೋಜನೆಗೆ ಅನರ್ಹರು."
+      },
+      {
+        "id": "excl_govt_emp",
+        "field": "isGovernmentEmployee",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Regular Government Employee",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ನಿಯಮಿತ ಸರ್ಕಾರಿ ನೌಕರರು",
+        "descriptionEn": "Serving or retired officers and staff of Central/State government ministries, PSUs, and autonomous bodies (Class IV/Group D staff exempted) are excluded.",
+        "descriptionKn": "ಕೇಂದ್ರ/ರಾಜ್ಯ ಸರ್ಕಾರಿ ನೌಕರರು ಮತ್ತು ನಿವೃತ್ತ ಪಿಂಚಣಿದಾರರು (ಡಿ-ದರ್ಜೆ ಹೊರತುಪಡಿಸಿ) ಅನರ್ಹರು."
+      },
+      {
+        "id": "cond_fruits_id",
+        "field": "hasFruitsId",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "FRUITS ID (FID) Registration",
+        "titleKn": "ಫ್ರೂಟ್ಸ್ ಐಡಿ (FRUITS ID) ನೋಂದಣಿ",
+        "descriptionEn": "Must have an active Farmer Registration and Unified Beneficiary Information System (FRUITS) number seeded in Karnataka.",
+        "descriptionKn": "ಕರ್ನಾಟಕದ ಫ್ರೂಟ್ಸ್ (FRUITS) ತಂತ್ರಾಂಶದಲ್ಲಿ ಕಡ್ಡಾಯವಾಗಿ ನೋಂದಣಿಯಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "cond_npci_aadhaar",
+        "field": "hasAadhaarBankLinked",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "Aadhaar-NPCI Bank Account Mapping",
+        "titleKn": "ಆಧಾರ್-NPCI ಬ್ಯಾಂಕ್ ಖಾತೆ ಜೋಡಣೆ",
+        "descriptionEn": "Bank account must be seeded with Aadhaar and mapped in NPCI mapper for Direct Benefit Transfer (DBT).",
+        "descriptionKn": "ಡಿಬಿಟಿ (DBT) ಹಣ ಜಮೆಯಾಗಲು ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಆಧಾರ್ ಲಿಂಕ್ ಮತ್ತು NPCI ಮ್ಯಾಪಿಂಗ್ ಕಡ್ಡಾಯ."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_fruits_id",
+        "nameEn": "FRUITS ID (FID)",
+        "nameKn": "ಫ್ರೂಟ್ಸ್ ಗುರುತಿನ ಸಂಖ್ಯೆ (FID)",
+        "descriptionEn": "Unique 9-digit Karnataka farmer identification number generated by Bhoomi-FRUITS integration.",
+        "descriptionKn": "ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಕೃಷಿ ಇಲಾಖೆ ನೀಡುವ 9 ಅಂಕಿಯ ಅನನ್ಯ ರೈತ ಗುರುತಿನ ಸಂಖ್ಯೆ.",
+        "issuingAuthority": "Raitha Samparka Kendra / Grama One",
+        "portalUrl": "https://fruits.karnataka.gov.in",
+        "howToObtainEn": "Visit your nearest Raitha Samparka Kendra (RSK) or Grama One centre with your RTC, Aadhaar, and bank passbook.",
+        "howToObtainKn": "ನಿಮ್ಮ ಹತ್ತಿರದ ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ ಅಥವಾ ಗ್ರಾಮ ಒನ್ ಕೇಂದ್ರಕ್ಕೆ ಪಹಣಿ, ಆಧಾರ್ ಹಾಗೂ ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ ಒಯ್ದು ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_rtc_pahani",
+        "nameEn": "Current Year RTC / Pahani",
+        "nameKn": "ಚಾಲ್ತಿ ಸಾಲಿನ ಆರ್.ಟಿ.ಸಿ / ಪಹಣಿ",
+        "descriptionEn": "Land records certificate showing cultivator name, survey number, and acreage.",
+        "descriptionKn": "ಸರ್ವೇ ನಂಬರ್ ಮತ್ತು ಜಮೀನಿನ ವಿವರವಿರುವ ಕಂದಾಯ ಇಲಾಖೆಯ ಪಹಣಿ ಪತ್ರ.",
+        "issuingAuthority": "Revenue Department (Bhoomi Portal)",
+        "portalUrl": "https://landrecords.karnataka.gov.in",
+        "howToObtainEn": "Download digitally signed RTC from Bhoomi portal for ₹15 or visit Nadakacheri.",
+        "howToObtainKn": "ಭೂಮಿ ಪೋರ್ಟಲ್ ಮೂಲಕ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ₹15 ಪಾವತಿಸಿ ಅಥವಾ ನಾಡಕಚೇರಿಯಲ್ಲಿ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_aadhaar_npci",
+        "nameEn": "Aadhaar Card with NPCI Bank Mandate",
+        "nameKn": "ಆಧಾರ್ ಕಾರ್ಡ್ ಮತ್ತು ಬ್ಯಾಂಕ್ NPCI ಲಿಂಕ್",
+        "descriptionEn": "Valid 12-digit Aadhaar card linked to an active savings bank account.",
+        "descriptionKn": "ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಜೋಡಣೆಯಾಗಿರುವ ಸಕ್ರಿಯ ಆಧಾರ್ ಕಾರ್ಡ್.",
+        "issuingAuthority": "UIDAI / Respective Bank Branch",
+        "howToObtainEn": "Submit Aadhaar DBT Mandate form at your home bank branch or check status on UIDAI portal.",
+        "howToObtainKn": "ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಶಾಖೆಗೆ ಭೇಟಿ ನೀಡಿ ಆಧಾರ್ ಡಿಬಿಟಿ ಮ್ಯಾಂಡೇಟ್ ಫಾರ್ಮ್ ಸಲ್ಲಿಸಿ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Obtain or verify your FRUITS ID through the Karnataka FRUITS Portal or nearest Raitha Samparka Kendra.",
+      "Ensure your land survey numbers in RTC (Bhoomi) are matched with your FRUITS ID profile.",
+      "Verify that your primary bank account is mapped on NPCI Direct Benefit Transfer (DBT) portal.",
+      "State agriculture field officer / Village Accountant verifies land records digitally.",
+      "Funds are disbursed directly every 4 months: Central tranche via PFMS and Karnataka top-up via e-Kshana DBT."
+    ],
+    "applicationStepsKn": [
+      "ಕರ್ನಾಟಕ ಫ್ರೂಟ್ಸ್ ಪೋರ್ಟಲ್ ಅಥವಾ ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರದಲ್ಲಿ ನಿಮ್ಮ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಪರಿಶೀಲಿಸಿ.",
+      "ನಿಮ್ಮ ಪಹಣಿಯ ಸರ್ವೇ ನಂಬರ್‌ಗಳು ಫ್ರೂಟ್ಸ್ ಪ್ರೊಫೈಲ್‌ಗೆ ಹೊಂದಾಣಿಕೆಯಾಗಿದೆಯೇ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+      "ಬ್ಯಾಂಕ್ ಶಾಖೆಯಲ್ಲಿ ಆಧಾರ್-NPCI ಲಿಂಕ್ ಪೂರ್ಣಗೊಂಡಿರುವುದನ್ನು ಪರಿಶೀಲಿಸಿ.",
+      "ಕೃಷಿ ಅಧಿಕಾರಿ/ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳು ಭೂ ದಾಖಲೆಗಳನ್ನು ಡಿಜಿಟಲ್ ರೂಪದಲ್ಲಿ ಪರಿಶೀಲಿಸುತ್ತಾರೆ.",
+      "ಪ್ರತಿ 4 ತಿಂಗಳಿಗೊಮ್ಮೆ ಕೇಂದ್ರದ ಕಂತು ಮತ್ತು ರಾಜ್ಯದ ಪ್ರೋತ್ಸಾಹಧನ ನೇರವಾಗಿ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಜಮೆಯಾಗುತ್ತದೆ."
+    ],
+    "helplinePhone": "1800-425-3553 / 155251",
+    "assistanceCentresEn": [
+      "Hobli Raitha Samparka Kendra (RSK) under Assistant Director of Agriculture (ADA)",
+      "Grama One & Karnataka One citizen service delivery centres",
+      "Village Administrative Officer (VAO / Village Accountant) office"
+    ],
+    "assistanceCentresKn": [
+      "ಹೋಬಳಿ ಮಟ್ಟದ ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ (ಸಹಾಯಕ ಕೃಷಿ ನಿರ್ದೇಶಕರ ಕಚೇರಿ)",
+      "ಗ್ರಾಮ ಒನ್ ಮತ್ತು ಕರ್ನಾಟಕ ಒನ್ ನಾಗರಿಕ ಸೇವಾ ಕೇಂದ್ರಗಳು",
+      "ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳ ಕಚೇರಿ"
+    ]
+  },
+  {
+    "id": "pmfby-samrakshane",
+    "nameEn": "Pradhan Mantri Fasal Bima Yojana (Samrakshane)",
+    "nameKn": "ಪ್ರಧಾನ ಮಂತ್ರಿ ಫಸಲ್ ಬಿಮಾ ಯೋಜನೆ (ಕರ್ನಾಟಕ ಸಂರಕ್ಷಣೆ)",
+    "taglineEn": "Comprehensive Crop Loss Insurance for Notified Karnataka Hoblis",
+    "taglineKn": "ನೈಸರ್ಗಿಕ ವಿಕೋಪಗಳಿಂದ ಬೆಳೆ ಹಾನಿಗೆ ಸಮಗ್ರ ವಿಮಾ ರಕ್ಷಣೆ",
+    "departmentEn": "Department of Agriculture, Govt. of Karnataka",
+    "departmentKn": "ಕೃಷಿ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ",
+    "category": "Crop Insurance",
+    "categoryKn": "ಬೆಳೆ ವಿಮೆ",
+    "financialBenefitEn": "Subsidized premium: Only 1.5% for Rabi, 2.0% for Kharif crops, and 5% for Annual Commercial/Horticultural crops. Balance premium subsidized by Central and State Governments. Claim covers prevented sowing, mid-season adversity, and yield loss.",
+    "financialBenefitKn": "ರೈತರು ಪಾವತಿಸಬೇಕಾದ ಪ್ರೀಮಿಯಂ: ಮುಂಗಾರು ಬೆಳೆಗೆ 2%, ಹಿಂಗಾರು ಬೆಳೆಗೆ 1.5% ಹಾಗೂ ವಾಣಿಜ್ಯ/ತೋಟಗಾರಿಕೆ ಬೆಳೆಗೆ 5% ಮಾತ್ರ. ಉಳಿದ ಪ್ರೀಮಿಯಂ ಸರ್ಕಾರವೇ ಭರಿಸುತ್ತದೆ.",
+    "officialPortalUrl": "https://samrakshane.karnataka.gov.in",
+    "informationUrl": "https://pmfby.gov.in",
+    "lastVerifiedDate": "2026-11-01",
+    "rulesVersion": "2026.4-SMK",
+    "applicationDeadline": "2026-11-30",
+    "deadlineType": "SEASONAL_CUTOFF",
+    "deadlineVerified": true,
+    "deadlineNoteEn": "Rabi season crop enrollment cutoff on Karnataka Samrakshane portal (dates vary by notified hobli crop).",
+    "deadlineNoteKn": "ಹಿಂಗಾರು ಹಂಗಾಮಿನ ಬೆಳೆ ವಿಮೆ ನೋಂದಣಿಗೆ ಸಂರಕ್ಷಣೆ ಪೋರ್ಟಲ್ ಕೊನೆಯ ದಿನಾಂಕ (ಹೋಬಳಿ ಬೆಳೆ ಅನುಸಾರ ಬದಲಾಗಬಹುದು).",
+    "conditions": [
+      {
+        "id": "pmfby_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Farmland Location",
+        "titleKn": "ಕರ್ನಾಟಕದಲ್ಲಿ ಜಮೀನು ಇರಬೇಕು",
+        "descriptionEn": "The agricultural land must be situated in Karnataka.",
+        "descriptionKn": "ವಿಮೆ ಮಾಡಿಸುವ ಕೃಷಿ ಜಮೀನು ಕರ್ನಾಟಕ ರಾಜ್ಯದ ವ್ಯಾಪ್ತಿಯಲ್ಲಿರಬೇಕು."
+      },
+      {
+        "id": "pmfby_notified",
+        "field": "notifiedCropInHobli",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Notified Crop in Notified Insurance Unit (Hobli/GP)",
+        "titleKn": "ಅಧಿಸೂಚಿತ ಬೆಳೆ ಮತ್ತು ಹೋಬಳಿ/ಗ್ರಾಮ ಪಂಚಾಯತಿ ವ್ಯಾಪ್ತಿ",
+        "descriptionEn": "The crop cultivated must be notified for your specific Gram Panchayat or Hobli in the current season gazette.",
+        "descriptionKn": "ಚಾಲ್ತಿ ಹಂಗಾಮಿನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮ ಪಂಚಾಯತ್ ವ್ಯಾಪ್ತಿಗೆ ಆ ಬೆಳೆ ಅಧಿಸೂಚನೆಗೊಂಡಿರಬೇಕು."
+      },
+      {
+        "id": "pmfby_cultivator",
+        "field": "farmerCategory",
+        "operator": "IN",
+        "expectedValue": [
+          "small_marginal",
+          "large",
+          "tenant",
+          "woman_farmer"
+        ],
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Recognized Cultivator (Owner or Tenant)",
+        "titleKn": "ಗುರುತಿಸಲ್ಪಟ್ಟ ಕೃಷಿಕ (ಭೂಮಾಲೀಕ ಅಥವಾ ಗೇಣಿದಾರ)",
+        "descriptionEn": "Both land-owning farmers and recorded tenant/sharecropper farmers are eligible.",
+        "descriptionKn": "ಭೂಮಾಲೀಕರು ಹಾಗೂ ಗೇಣಿ ಒಪ್ಪಂದ ಹೊಂದಿರುವ ಕೃಷಿಕರು ಇಬ್ಬರೂ ಅರ್ಹರು."
+      },
+      {
+        "id": "pmfby_sowing_cert",
+        "field": "hasSowingCertificate",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "Karnataka Crop Survey Verification",
+        "titleKn": "ಬೆಳೆ ಸಮೀಕ್ಷೆ (Crop Survey) ದೃಢೀಕರಣ",
+        "descriptionEn": "Crop details must match the Karnataka Farmer Crop Survey Mobile Application verification record.",
+        "descriptionKn": "ರೈತ ಬೆಳೆ ಸಮೀಕ್ಷೆ ಮೊಬೈಲ್ ಆ್ಯಪ್‌ನಲ್ಲಿ ನಮೂದಾದ ಬೆಳೆ ವಿವರಗಳೊಂದಿಗೆ ಹೊಂದಾಣಿಕೆಯಾಗಬೇಕು."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_pmfby_crop_survey",
+        "nameEn": "Crop Survey (Bele Sameekshe) Acknowledgement",
+        "nameKn": "ಬೆಳೆ ಸಮೀಕ್ಷೆ ದೃಢೀಕರಣ ಪ್ರತಿ",
+        "descriptionEn": "Official government crop survey record confirming crop sown in the current season.",
+        "descriptionKn": "ಹಂಗಾಮಿನಲ್ಲಿ ಜಮೀನಿನಲ್ಲಿ ಬೆಳೆದ ಬೆಳೆಯ ದೃಢೀಕೃತ ಬೆಳೆ ಸಮೀಕ್ಷೆ ವಿವರ.",
+        "issuingAuthority": "Department of Agriculture Mobile Crop Survey System",
+        "portalUrl": "https://cropsurvey.karnataka.gov.in",
+        "howToObtainEn": "Record crop on the Karnataka Bele Sameekshe Farmer App or contact the Village Surveyor.",
+        "howToObtainKn": "ಬೆಳೆ ಸಮೀಕ್ಷೆ ಮೊಬೈಲ್ ಆ್ಯಪ್ ಮೂಲಕ ಅಥವಾ ಗ್ರಾಮದ ಖಾಸಗಿ ನಿವಾಸಿ (PR) ಸಹಾಯದಿಂದ ದಾಖಲಿಸಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_pmfby_rtc",
+        "nameEn": "Land RTC / Pahani Certificate",
+        "nameKn": "ಪಹಣಿ ಪತ್ರ (RTC)",
+        "descriptionEn": "Current agricultural year RTC showing survey and hissa number.",
+        "descriptionKn": "ಚಾಲ್ತಿ ಸಾಲಿನ ಆರ್.ಟಿ.ಸಿ ಪತ್ರ.",
+        "issuingAuthority": "Bhoomi Portal",
+        "howToObtainEn": "Bhoomi portal or Grama One.",
+        "howToObtainKn": "ಗ್ರಾಮ ಒನ್ ಅಥವಾ ಭೂಮಿ ಪೋರ್ಟಲ್ ಮೂಲಕ ಪಡೆಯಬಹುದು.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_bank_passbook",
+        "nameEn": "Bank Passbook Copy",
+        "nameKn": "ಬ್ಯಾಂಕ್ ಪಾಸ್‌ಬುಕ್ ಪ್ರತಿ",
+        "descriptionEn": "Copy showing IFSC, account number, and branch name.",
+        "descriptionKn": "ಬ್ಯಾಂಕ್ ಖಾತೆ ಸಂಖ್ಯೆ ಮತ್ತು ಐಎಫ್‌ಎಸ್‌ಸಿ ಕೋಡ್ ಇರುವ ಪಾಸ್‌ಬುಕ್.",
+        "issuingAuthority": "Commercial / Grameena / DCC Bank",
+        "howToObtainEn": "From your home bank branch.",
+        "howToObtainKn": "ನಿಮ್ಮ ಉಳಿತಾಯ ಖಾತೆ ಇರುವ ಬ್ಯಾಂಕಿನಿಂದ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Verify notified crops for your village/hobli on the Karnataka Samrakshane portal.",
+      "Ensure you have completed the mandatory Farmer Crop Survey (Bele Sameekshe).",
+      "Apply online via Samrakshane portal or visit Common Service Center (CSC) / Grama One before the cut-off date.",
+      "Pay farmer share of premium (1.5% to 2.0%) and collect payment receipt with insurance proposal ID.",
+      "In case of localized disaster or prevented sowing, notify the department or insurer within 72 hours via Crop Insurance App."
+    ],
+    "applicationStepsKn": [
+      "ಕರ್ನಾಟಕ ಸಂರಕ್ಷಣೆ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಗ್ರಾಮಕ್ಕೆ ಅಧಿಸೂಚಿತ ಬೆಳೆಗಳ ಪಟ್ಟಿ ಪರಿಶೀಲಿಸಿ.",
+      "ರೈತ ಬೆಳೆ ಸಮೀಕ್ಷೆ (Bele Sameekshe) ಪೂರ್ಣಗೊಂಡಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+      "ಕೊನೆಯ ದಿನಾಂಕದೊಳಗೆ ಗ್ರಾಮ ಒನ್/ಸಿಎಸ್‌ಸಿ ಕೇಂದ್ರ ಅಥವಾ ಸಂರಕ್ಷಣೆ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ.",
+      "ನಿಗದಿತ ಪ್ರೀಮಿಯಂ ಮೊತ್ತ ಪಾವತಿಸಿ ಸ್ವೀಕೃತಿ ರಸೀದಿ (Proposal Receipt) ಪಡೆದುಕೊಳ್ಳಿ.",
+      "ಪ್ರತಿಕೂಲ ಹವಾಮಾನದಿಂದ ಬೆಳೆ ನಷ್ಟವಾದರೆ 72 ಗಂಟೆಗಳ ಒಳಗೆ ಕ್ರಾಪ್ ಇನ್ಶೂರೆನ್ಸ್ ಆ್ಯಪ್ ಅಥವಾ 1800-180-1551 ಗೆ ಕರೆ ಮಾಡಿ ಮಾಹಿತಿ ನೀಡಿ."
+    ],
+    "helplinePhone": "1800-425-3553 / 1800-180-1551",
+    "assistanceCentresEn": [
+      "Raitha Samparka Kendra (RSK) Agriculture Officer",
+      "Grama One / Bangalore One centres",
+      "Primary Agricultural Credit Cooperative Societies (PACS)"
+    ],
+    "assistanceCentresKn": [
+      "ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರದ ಕೃಷಿ ಅಧಿಕಾರಿಗಳು",
+      "ಗ್ರಾಮ ಒನ್ / ಸಿಎಸ್‌ಸಿ ಕೇಂದ್ರಗಳು",
+      "ಪ್ರಾಥಮಿಕ ಕೃಷಿ ಪತ್ತಿನ ಸಹಕಾರ ಸಂಘಗಳು (PACS)"
+    ]
+  },
+  {
+    "id": "pmksy-micro-irrigation",
+    "nameEn": "PM Krishi Sinchayee Yojana — Drip & Sprinkler Subsidy",
+    "nameKn": "ಪ್ರಧಾನ ಮಂತ್ರಿ ಕೃಷಿ ಸಿಂಚಾಯಿ ಯೋಜನೆ — ಹನಿ ಮತ್ತು ತುಂತುರು ನೀರಾವರಿ",
+    "taglineEn": "Up to 90% Subsidy on Micro-Irrigation for Small, Marginal & SC/ST Farmers",
+    "taglineKn": "ಸಣ್ಣ, ಅತಿ ಸಣ್ಣ ಹಾಗೂ ಎಸ್‌ಸಿ/ಎಸ್‌ಟಿ ರೈತರಿಗೆ ಶೇ. 90 ರವರೆಗೆ ಸಹಾಯಧನ",
+    "departmentEn": "Department of Horticulture & Agriculture, Govt. of Karnataka",
+    "departmentKn": "ತೋಟಗಾರಿಕೆ ಮತ್ತು ಕೃಷಿ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ",
+    "category": "Irrigation & Infrastructure",
+    "categoryKn": "ನೀರಾವರಿ ಮತ್ತು ಮೂಲಸೌಕರ್ಯ",
+    "financialBenefitEn": "90% subsidy for SC/ST small & marginal farmers (up to 5 acres); 75% subsidy for General/OBC small and marginal farmers (up to 5 acres); 45-55% subsidy for other farmers holding up to 12.5 acres.",
+    "financialBenefitKn": "ಎಸ್‌ಸಿ/ಎಸ್‌ಟಿ ಸಣ್ಣ-ಅತಿ ಸಣ್ಣ ರೈತರಿಗೆ ಶೇ. 90 ರವರೆಗೆ ಹಾಗೂ ಇತರ ಸಣ್ಣ-ಅತಿ ಸಣ್ಣ ರೈತರಿಗೆ ಶೇ. 75 ರವರೆಗೆ ಸಹಾಯಧನ.",
+    "officialPortalUrl": "https://horticulturedir.karnataka.gov.in",
+    "informationUrl": "https://pmksy.gov.in",
+    "lastVerifiedDate": "2026-10-20",
+    "rulesVersion": "2026.2-DIMS",
+    "applicationDeadline": null,
+    "deadlineType": "ROLLING_OPEN",
+    "deadlineVerified": false,
+    "deadlineNoteEn": "Open year-round on DIMS portal subject to taluk horticulture annual subsidy quota.",
+    "deadlineNoteKn": "ತಾಲೂಕು ತೋಟಗಾರಿಕೆ ಗುರಿ ಲಭ್ಯತೆಗೆ ಅನುಗುಣವಾಗಿ ವರ್ಷಪೂರ್ತಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಬಹುದು.",
+    "conditions": [
+      {
+        "id": "pmksy_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident Farmer",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ ರೈತ",
+        "descriptionEn": "Farmland must be located within Karnataka state jurisdiction.",
+        "descriptionKn": "ಜಮೀನು ಕರ್ನಾಟಕ ರಾಜ್ಯದ ವ್ಯಾಪ್ತಿಯಲ್ಲಿರಬೇಕು."
+      },
+      {
+        "id": "pmksy_land",
+        "field": "hasLandOwnership",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Land Ownership with Registered Title",
+        "titleKn": "ಸ್ವಂತ ಜಮೀನಿನ ಮಾಲೀಕತ್ವ",
+        "descriptionEn": "Farmer must own cultivable land with valid RTC in their name or family joint khata.",
+        "descriptionKn": "ರೈತರ ಹೆಸರಿನಲ್ಲಿ ಅಥವಾ ಜಂಟಿ ಖಾತೆಯಲ್ಲಿ ಮಾನ್ಯವಾದ ಪಹಣಿ ಇರಬೇಕು."
+      },
+      {
+        "id": "pmksy_water_source",
+        "field": "hasWaterSource",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Confirmed Water Source",
+        "titleKn": "ಖಚಿತ ನೀರಿನ ಮೂಲ",
+        "descriptionEn": "Must possess a functional water source such as an open well, borewell, canal water, or farm pond.",
+        "descriptionKn": "ಬೋರ್‌ವೆಲ್, ಬಾವಿ, ನಾಲಾ ನೀರು ಅಥವಾ ಕೃಷಿ ಹೊಂಡದಂತಹ ಖಚಿತ ನೀರಿನ ಮೂಲವಿರಬೇಕು."
+      },
+      {
+        "id": "pmksy_land_ceiling",
+        "field": "landHoldingAcres",
+        "operator": "LESS_THAN_OR_EQUAL",
+        "expectedValue": 12.5,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Landholding Ceiling (Max 12.5 Acres)",
+        "titleKn": "ಗರಿಷ್ಠ ಭೂಮಿ ಮಿತಿ (12.5 ಎಕರೆ ಒಳಗೆ)",
+        "descriptionEn": "The subsidy benefit is capped up to a maximum landholding of 5 hectares (12.5 acres).",
+        "descriptionKn": "ಯೋಜನೆಯ ಗರಿಷ್ಠ ಲಾಭ 5 ಹೆಕ್ಟೇರ್ (12.5 ಎಕರೆ) ಭೂಮಿಗೆ ಮಾತ್ರ ಸೀಮಿತವಾಗಿರುತ್ತದೆ."
+      },
+      {
+        "id": "pmksy_fruits_id",
+        "field": "hasFruitsId",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "Verified FRUITS ID",
+        "titleKn": "ದೃಢೀಕೃತ ಫ್ರೂಟ್ಸ್ ಐಡಿ",
+        "descriptionEn": "Application through Drip Irrigation Management System (DIMS) requires registered FRUITS ID.",
+        "descriptionKn": "ಡಿಐಎಂಎಸ್ (DIMS) ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ನೋಂದಣಿಗೆ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಕಡ್ಡಾಯ."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_water_source_cert",
+        "nameEn": "Water Source & Electricity Proof",
+        "nameKn": "ನೀರಿನ ಮೂಲ ಮತ್ತು ವಿದ್ಯುತ್ ಸಂಪರ್ಕ ದಾಖಲೆ",
+        "descriptionEn": "Electricity bill of pump set (BESCOM/MESCOM/HESCOM/GESCOM/CESC) or certificate of perennial water source.",
+        "descriptionKn": "ಪಂಪ್‌ಸೆಟ್‌ನ ವಿದ್ಯುತ್ ಬಿಲ್ ಅಥವಾ ಜಲಮೂಲದ ದೃಢೀಕರಣ ಪತ್ರ.",
+        "issuingAuthority": "Electricity Supply Company (ESCOM) / Revenue Dept",
+        "howToObtainEn": "Latest paid electricity bill or ESCOM RR Number copy.",
+        "howToObtainKn": "ವಿದ್ಯುತ್ ಸರಬರಾಜು ಕಂಪನಿಯ ಇತ್ತೀಚಿನ ಬಿಲ್ ಅಥವಾ ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ ಪ್ರತಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_caste_cert",
+        "nameEn": "Caste Certificate (For 90% SC/ST Subsidy)",
+        "nameKn": "ಜಾತಿ ಪ್ರಮಾಣ ಪತ್ರ (ಎಸ್‌ಸಿ/ಎಸ್‌ಟಿ 90% ಸಬ್ಸಿಡಿಗೆ)",
+        "descriptionEn": "Valid digitally signed caste certificate issued by Revenue Department.",
+        "descriptionKn": "ನಾಡಕಚೇರಿಯಿಂದ ನೀಡಲಾದ ಡಿಜಿಟಲ್ ಸಹಿ ಹೊಂದಿರುವ ಜಾತಿ ಪ್ರಮಾಣ ಪತ್ರ.",
+        "issuingAuthority": "Nadakacheri / Revenue Dept",
+        "portalUrl": "https://nadakacheri.karnataka.gov.in",
+        "howToObtainEn": "Nadakacheri portal or Grama One with RD number.",
+        "howToObtainKn": "ನಾಡಕಚೇರಿ ಅಥವಾ ಗ್ರಾಮ ಒನ್ ಕೇಂದ್ರದಲ್ಲಿ ಆರ್‌ಡಿ (RD) ಸಂಖ್ಯೆ ಮೂಲಕ ಪಡೆಯಿರಿ.",
+        "isMandatory": false
+      },
+      {
+        "id": "doc_soil_water_test",
+        "nameEn": "Soil & Water Testing Report (Optional)",
+        "nameKn": "ಮಣ್ಣು ಮತ್ತು ನೀರು ಪರೀಕ್ಷಾ ವರದಿ",
+        "descriptionEn": "Water quality report indicating salinity and pH for drip emitter longevity.",
+        "descriptionKn": "ಹನಿ ನೀರಾವರಿ ಪೈಪ್‌ಗಳ ಬಾಳಿಕೆಗೆ ನೀರಿನ ಗುಣಮಟ್ಟ ಪರೀಕ್ಷಾ ವರದಿ.",
+        "issuingAuthority": "District Soil & Water Testing Laboratory / RSK",
+        "howToObtainEn": "Submit water sample at nearby RSK laboratory.",
+        "howToObtainKn": "ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರದ ಪ್ರಯೋಗಾಲಯದಲ್ಲಿ ಪರೀಕ್ಷಿಸಿ ಪಡೆಯಿರಿ.",
+        "isMandatory": false
+      }
+    ],
+    "applicationStepsEn": [
+      "Register or log in to Karnataka Drip Irrigation Management System (DIMS) with FRUITS ID.",
+      "Select approved empanelled micro-irrigation manufacturer and local dealer.",
+      "Senior Assistant Director of Horticulture (SADH) field inspector conducts pre-inspection GPS survey.",
+      "Work order issued; dealer installs certified ISI-grade drip/sprinkler components.",
+      "Post-installation joint verification conducted with geo-tagged photographs; subsidy released directly to beneficiary/vendor via DBT."
+    ],
+    "applicationStepsKn": [
+      "ಫ್ರೂಟ್ಸ್ ಐಡಿ ಬಳಸಿ ಡಿಐಎಂಎಸ್ (DIMS) ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ.",
+      "ಸರ್ಕಾರದ ಮಾನ್ಯತೆ ಪಡೆದ ಕಂಪನಿ ಹಾಗೂ ಸ್ಥಳೀಯ ಡೀಲರ್ ಅನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+      "ತೋಟಗಾರಿಕೆ ಇಲಾಖೆಯ ಅಧಿಕಾರಿಗಳು ಸ್ಥಳ ಪರಿಶೀಲನೆ (GPS ಸಮೀಕ್ಷೆ) ನಡೆಸುತ್ತಾರೆ.",
+      "ಕಾರ್ಯಾದೇಶ (Work Order) ನೀಡಿದ ನಂತರ ಡೀಲರ್ ಗುಣಮಟ್ಟದ ಉಪಕರಣಗಳನ್ನು ಅಳವಡಿಸುತ್ತಾರೆ.",
+      "ಅಂತಿಮ ಜಂಟಿ ಪರಿಶೀಲನೆ ನಂತರ ಸಬ್ಸಿಡಿ ಮೊತ್ತವನ್ನು ನೇರವಾಗಿ ವರ್ಗಾಯಿಸಲಾಗುತ್ತದೆ."
+    ],
+    "helplinePhone": "080-26571925",
+    "assistanceCentresEn": [
+      "Taluk Senior Assistant Director of Horticulture (SADH) office",
+      "Hobli Raitha Samparka Kendra",
+      "District Deputy Director of Horticulture (DDH) office"
+    ],
+    "assistanceCentresKn": [
+      "ತಾಲೂಕು ಹಿರಿಯ ಸಹಾಯಕ ತೋಟಗಾರಿಕೆ ನಿರ್ದೇಶಕರ (SADH) ಕಚೇರಿ",
+      "ಹೋಬಳಿ ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ",
+      "ಜಿಲ್ಲಾ ತೋಟಗಾರಿಕೆ ಉಪ ನಿರ್ದೇಶಕರ ಕಚೇರಿ"
+    ]
+  },
+  {
+    "id": "ganga-kalyana",
+    "nameEn": "Ganga Kalyana Scheme (Individual & Community Borewells)",
+    "nameKn": "ಗಂಗಾ ಕಲ್ಯಾಣ ಯೋಜನೆ (ವೈಯಕ್ತಿಕ ಹಾಗೂ ಸಮುದಾಯ ಬೋರ್‌ವೆಲ್)",
+    "taglineEn": "100% Free Irrigation Borewell Drilling, Submersible Pump & Energization for SC/ST & Backward Classes",
+    "taglineKn": "ಎಸ್‌ಸಿ/ಎಸ್‌ಟಿ, ಹಿಂದುಳಿದ ಹಾಗೂ ಅಲ್ಪಸಂಖ್ಯಾತ ರೈತರಿಗೆ ಉಚಿತ ಬೋರ್‌ವೆಲ್ ಮತ್ತು ಪಂಪ್‌ಸೆಟ್",
+    "departmentEn": "Dr. B.R. Ambedkar / D. Devaraj Urs / KMDC Corporations, Govt. of Karnataka",
+    "departmentKn": "ಡಾ. ಬಿ.ಆರ್. ಅಂಬೇಡ್ಕರ್ / ಡಿ. ದೇವರಾಜ ಅರಸು / ಅಲ್ಪಸಂಖ್ಯಾತರ ಅಭಿವೃದ್ಧಿ ನಿಗಮ",
+    "category": "Affirmative Welfare & Irrigation",
+    "categoryKn": "ಕಲ್ಯಾಣ ಹಾಗೂ ನೀರಾವರಿ ಯೋಜನೆ",
+    "financialBenefitEn": "Complete package: 100% state-funded drilling of irrigation borewell, high-efficiency submersible pump set, electrical pole erection, transformer link, and distribution pipelines up to ₹3,50,000 unit cost.",
+    "financialBenefitKn": "ಉಚಿತ ಕೊಳವೆಬಾವಿ ಕೊರೆಯುವುದು, ಸಬ್‌ಮರ್ಸಿಬಲ್ ಪಂಪ್‌ಸೆಟ್ ಅಳವಡಿಕೆ, ವಿದ್ಯುದೀಕರಣ ಮತ್ತು ಪೈಪ್‌ಲೈನ್ ಸೇರಿದಂತೆ ಸಂಪೂರ್ಣ ವೆಚ್ಚ (₹3.50 ಲಕ್ಷ ಮೌಲ್ಯ) ಸರ್ಕಾರವೇ ಭರಿಸುತ್ತದೆ.",
+    "officialPortalUrl": "https://kmdc.karnataka.gov.in",
+    "informationUrl": "https://sevasindhu.karnataka.gov.in",
+    "lastVerifiedDate": "2026-11-10",
+    "rulesVersion": "2026.5-GK-REV",
+    "applicationDeadline": "2026-11-16",
+    "deadlineType": "CYCLE_WINDOW",
+    "deadlineVerified": true,
+    "deadlineNoteEn": "Current Karnataka Corporation (Ambedkar / Urs / KMDC) borewell application cycle submission cutoff.",
+    "deadlineNoteKn": "ಪ್ರಸಕ್ತ ಸಾಲಿನ ನಿಗಮಗಳ ಕೊಳವೆಬಾವಿ ಅರ್ಜಿ ಸ್ವೀಕಾರ ಚಕ್ರದ ಕೊನೆಯ ದಿನಾಂಕ.",
+    "conditions": [
+      {
+        "id": "gk_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident Farmer",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ ರೈತ",
+        "descriptionEn": "The applicant must be a permanent resident of Karnataka.",
+        "descriptionKn": "ಅರ್ಜಿದಾರರು ಕರ್ನಾಟಕದ ಖಾಯಂ ನಿವಾಸಿಯಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "gk_social_cat",
+        "field": "socialCategory",
+        "operator": "IN",
+        "expectedValue": [
+          "SC",
+          "ST",
+          "OBC_CAT_1",
+          "OBC_2A",
+          "OBC_2B",
+          "OBC_3A",
+          "OBC_3B",
+          "MINORITY"
+        ],
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Eligible Community Category",
+        "titleKn": "ಅರ್ಹ ಸಮುದಾಯ ವರ್ಗ",
+        "descriptionEn": "Must belong to Scheduled Castes, Scheduled Tribes, Backward Classes (Category 1, 2A, 2B, 3A, 3B), or Religious Minorities.",
+        "descriptionKn": "ಪರಿಶಿಷ್ಟ ಜಾತಿ, ಪರಿಶಿಷ್ಟ ಪಂಗಡ, ಹಿಂದುಳಿದ ವರ್ಗಗಳು ಅಥವಾ ಅಲ್ಪಸಂಖ್ಯಾತ ಸಮುದಾಯಕ್ಕೆ ಸೇರಿದವರಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "gk_income_limit",
+        "field": "annualIncome",
+        "operator": "LESS_THAN_OR_EQUAL",
+        "expectedValue": 200000,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Annual Family Income (Max ₹2,00,000 for Rural)",
+        "titleKn": "ವಾರ್ಷಿಕ ಆದಾಯ ಮಿತಿ (ಗ್ರಾಮೀಣ ಭಾಗಕ್ಕೆ ಗರಿಷ್ಠ ₹2,00,000)",
+        "descriptionEn": "Total family income from all sources must not exceed ₹2,00,000 per year as certified by Nadakacheri.",
+        "descriptionKn": "ಕುಟುಂಬದ ವಾರ್ಷಿಕ ವರಮಾನವು ₹2,00,000 ಮೀರಬಾರದು (ನಾಡಕಚೇರಿ ಆದಾಯ ಪ್ರಮಾಣ ಪತ್ರ)."
+      },
+      {
+        "id": "gk_land_holding",
+        "field": "landHoldingAcres",
+        "operator": "GREATER_THAN_OR_EQUAL",
+        "expectedValue": 1.5,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Minimum Landholding (1.5 Acres)",
+        "titleKn": "ಕನಿಷ್ಠ 1.5 ಎಕರೆ ಜಮೀನು",
+        "descriptionEn": "Individual applicant must possess at least 1.5 acres of dry/un-irrigated cultivable land (up to 5 acres). For community borewell, combined contiguous land of adjacent small farmers can be pooled.",
+        "descriptionKn": "ವೈಯಕ್ತಿಕ ಫಲಾನುಭವಿಯು ಕನಿಷ್ಠ 1.5 ಎಕರೆಯಿಂದ 5 ಎಕರೆ ಒಣಭೂಮಿ ಹೊಂದಿರಬೇಕು."
+      },
+      {
+        "id": "gk_excl_existing_borewell",
+        "field": "hasExistingBorewell",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Existing Functional Borewell",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ಈಗಾಗಲೇ ಚಾಲ್ತಿ ಬೋರ್‌ವೆಲ್ ಹೊಂದಿರುವವರು",
+        "descriptionEn": "Farmers who already have an operational irrigation borewell or received earlier corporation borewell benefits on the same land are disqualified.",
+        "descriptionKn": "ಅದೇ ಜಮೀನಿನಲ್ಲಿ ಈಗಾಗಲೇ ಚಾಲ್ತಿ ಕೊಳವೆಬಾವಿ ಅಥವಾ ಈ ಹಿಂದೆ ನಿಗಮದಿಂದ ಲಾಭ ಪಡೆದಿದ್ದರೆ ಅನರ್ಹರು."
+      },
+      {
+        "id": "gk_caste_cert",
+        "field": "hasCasteIncomeCertificate",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "Valid RD Caste & Income Certificate",
+        "titleKn": "ಮಾನ್ಯವಾದ ಆರ್‌ಡಿ ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣ ಪತ್ರ",
+        "descriptionEn": "Valid RD barcode certificate issued by Tahsildar through Nadakacheri.",
+        "descriptionKn": "ಕಂದಾಯ ಇಲಾಖೆಯ ತಹಶೀಲ್ದಾರ್ ನೀಡಿದ ಡಿಜಿಟಲ್ ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣ ಪತ್ರ."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_gk_caste_income",
+        "nameEn": "Caste & Income Certificate (RD Number)",
+        "nameKn": "ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪ್ರಮಾಣ ಪತ್ರ (RD ನಂಬರ್)",
+        "descriptionEn": "Digital certificate issued within last 5 years from Nadakacheri portal.",
+        "descriptionKn": "ಕಳೆದ 5 ವರ್ಷಗಳ ಒಳಗೆ ಪಡೆದ ಮಾನ್ಯ ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪತ್ರ.",
+        "issuingAuthority": "Revenue Department / Nadakacheri",
+        "portalUrl": "https://nadakacheri.karnataka.gov.in",
+        "howToObtainEn": "Apply at Nadakacheri or Grama One with ration card and Aadhaar.",
+        "howToObtainKn": "ಪಡಿತರ ಚೀಟಿ ಮತ್ತು ಆಧಾರ್ ನೀಡಿ ಗ್ರಾಮ ಒನ್‌ನಲ್ಲಿ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_gk_rtc_pahani",
+        "nameEn": "RTC / Pahani with Mutation Extract",
+        "nameKn": "ಪಹಣಿ ಹಾಗೂ ಮ್ಯುಟೇಷನ್ ಪ್ರತಿ",
+        "descriptionEn": "Record of rights confirming clear title without mortgages.",
+        "descriptionKn": "ಯಾವುದೇ ವಿವಾದವಿಲ್ಲದ ಸ್ವಂತ ಖಾತೆಯ ಪಹಣಿ ಮತ್ತು ಹಕ್ಕು ಬದಲಾವಣೆ ದಾಖಲೆ.",
+        "issuingAuthority": "Bhoomi Portal",
+        "howToObtainEn": "Bhoomi portal or Grama One.",
+        "howToObtainKn": "ಗ್ರಾಮ ಒನ್ ಅಥವಾ ಭೂಮಿ ಪೋರ್ಟಲ್.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_gk_no_borewell_cert",
+        "nameEn": "No-Borewell Certificate / VA Mahazar",
+        "nameKn": "ಕೊಳವೆಬಾವಿ ಇಲ್ಲದಿರುವ ಬಗ್ಗೆ ಪಂಚನಾಮೆ ವರದಿ",
+        "descriptionEn": "Certificate from Village Administrative Officer certifying no active energized borewell exists on the land.",
+        "descriptionKn": "ಜಮೀನಿನಲ್ಲಿ ಯಾವುದೇ ಕೊಳವೆಬಾವಿ ಇಲ್ಲದಿರುವ ಬಗ್ಗೆ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳ ಮಹಜರು ವರದಿ.",
+        "issuingAuthority": "Village Administrative Officer (VAO)",
+        "howToObtainEn": "Contact your Village Administrative Officer or Revenue Inspector.",
+        "howToObtainKn": "ನಿಮ್ಮ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳನ್ನು ಭೇಟಿ ಮಾಡಿ ಪರಿಶೀಲನೆ ಮಾಡಿಸಿ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Apply online on Seva Sindhu or dedicated Karnataka Corporation portal (KMDC / Ambedkar Nigam).",
+      "Upload RD number of Caste & Income Certificate, Bhoomi RTC, and Aadhaar.",
+      "District Selection Committee chaired by local MLA / Deputy Commissioner reviews and sanctions target applications.",
+      "Hydrogeological point marking survey conducted by Department of Mines and Geology ground water scientist.",
+      "Contractor drills borewell, installs submersible motor pump set, and ESCOM completes electrical line energization."
+    ],
+    "applicationStepsKn": [
+      "ಸೇವಾ ಸಿಂಧು ಅಥವಾ ಸಂಬಂಧಿತ ನಿಗಮದ ಪೋರ್ಟಲ್ ಮೂಲಕ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ.",
+      "ಜಾತಿ ಮತ್ತು ಆದಾಯ ಪತ್ರದ RD ಸಂಖ್ಯೆ, ಪಹಣಿ ಹಾಗೂ ಆಧಾರ್ ಪ್ರತಿ ಲಗತ್ತಿಸಿ.",
+      "ಶಾಸಕರ ಅಧ್ಯಕ್ಷತೆಯ ತಾಲೂಕು ಆಯ್ಕೆ ಸಮಿತಿಯು ಅರ್ಹ ಫಲಾನುಭವಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡುತ್ತದೆ.",
+      "ಗಣಿ ಮತ್ತು ಭೂವಿಜ್ಞಾನ ಇಲಾಖೆಯ ವಿಜ್ಞಾನಿಗಳಿಂದ ಅಂತರ್ಜಲ ಸಮೀಕ್ಷೆ (ಪಾಯಿಂಟ್ ಮಾರ್ಕಿಂಗ್) ನಡೆಸಲಾಗುತ್ತದೆ.",
+      "ಸರ್ಕಾರಿ ಗುತ್ತಿಗೆದಾರರಿಂದ ಬೋರ್‌ವೆಲ್ ಕೊರೆದು, ಪಂಪ್‌ಸೆಟ್ ಅಳವಡಿಸಿ, ಎಸ್ಕಾಂ ವಿದ್ಯುತ್ ಸಂಪರ್ಕ ಕಲ್ಪಿಸಲಾಗುತ್ತದೆ."
+    ],
+    "helplinePhone": "080-22864212 / 1902",
+    "assistanceCentresEn": [
+      "District Manager Office of Dr. B.R. Ambedkar / D. Devaraj Urs / KMDC Corporation",
+      "Grama One & Seva Sindhu Citizen Service Kiosks",
+      "Taluk Social Welfare / Backward Classes Office"
+    ],
+    "assistanceCentresKn": [
+      "ಜಿಲ್ಲಾ ಅಂಬೇಡ್ಕರ್ / ದೇವರಾಜ ಅರಸು / ಅಲ್ಪಸಂಖ್ಯಾತರ ಅಭಿವೃದ್ಧಿ ನಿಗಮದ ಕಚೇರಿ",
+      "ಗ್ರಾಮ ಒನ್ ಮತ್ತು ಸೇವಾ ಸಿಂಧು ಕೇಂದ್ರಗಳು",
+      "ತಾಲೂಕು ಸಮಾಜ ಕಲ್ಯಾಣ ಹಾಗೂ ಹಿಂದುಳಿದ ವರ್ಗಗಳ ಕಲ್ಯಾಣ ಇಲಾಖೆ"
+    ]
+  },
+  {
+    "id": "krishi-yanthradhare",
+    "nameEn": "Krishi Yanthradhare (Custom Hiring Service Centers - CHSC)",
+    "nameKn": "ಕೃಷಿ ಯಂತ್ರಧಾರೆ (ಬಾಡಿಗೆ ಆಧಾರಿತ ಕೃಷಿ ಯಂತ್ರೋಪಕರಣ ಕೇಂದ್ರಗಳು)",
+    "taglineEn": "Subsidized Modern Farm Machinery on Affordable Hourly Rental Basis",
+    "taglineKn": "ರೈತರಿಗೆ ಕೈಗೆಟುಕುವ ದರದಲ್ಲಿ ಕೃಷಿ ಯಂತ್ರೋಪಕರಣಗಳ ಬಾಡಿಗೆ ಸೇವೆ",
+    "departmentEn": "Department of Agriculture, Govt. of Karnataka (Operated by SKDRDP)",
+    "departmentKn": "ಕೃಷಿ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ (ಧರ್ಮಸ್ಥಳ ಗ್ರಾಮಾಭಿವೃದ್ಧಿ ಯೋಜನೆ ಸಹಯೋಗ)",
+    "category": "Farm Mechanization",
+    "categoryKn": "ಕೃಷಿ ಯಾಂತ್ರೀಕರಣ",
+    "financialBenefitEn": "Access to tractors, power tillers, rotavators, multi-crop threshers, transplanters, laser land levelers, and combine harvesters at 30% to 50% below commercial market rental rates.",
+    "financialBenefitKn": "ಮಾರುಕಟ್ಟೆ ದರಕ್ಕಿಂತ ಶೇ. 30 ರಿಂದ 50 ರಷ್ಟು ಕಡಿಮೆ ಬಾಡಿಗೆ ದರದಲ್ಲಿ ಟ್ರ್ಯಾಕ್ಟರ್, ಟಿಲ್ಲರ್, ಭತ್ತದ ನಾಟಿ ಯಂತ್ರ, ಕಟಾವು ಯಂತ್ರಗಳ ಲಭ್ಯತೆ.",
+    "officialPortalUrl": "https://raitamitra.karnataka.gov.in",
+    "informationUrl": "https://raitamitra.karnataka.gov.in/info-2/Krishi+Yanthradhare/en",
+    "lastVerifiedDate": "2026-10-18",
+    "rulesVersion": "2026.2-KYD",
+    "applicationDeadline": null,
+    "deadlineType": "ROLLING_OPEN",
+    "deadlineVerified": false,
+    "deadlineNoteEn": "Walk-in and advance machinery booking open throughout Kharif, Rabi, and Summer cropping seasons.",
+    "deadlineNoteKn": "ಮುಂಗಾರು, ಹಿಂಗಾರು ಮತ್ತು ಬೇಸಿಗೆ ಹಂಗಾಮಿನಾದ್ಯಂತ ಯಂತ್ರ ಬುಕಿಂಗ್ ಮುಕ್ತವಾಗಿದೆ.",
+    "conditions": [
+      {
+        "id": "kyd_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Farmland Cultivator",
+        "titleKn": "ಕರ್ನಾಟಕದಲ್ಲಿ ಕೃಷಿ ಮಾಡುವವರು",
+        "descriptionEn": "Must cultivate land within the operational taluk or hobli CHSC service area.",
+        "descriptionKn": "ಸಂಬಂಧಿತ ಹೋಬಳಿ ಅಥವಾ ತಾಲೂಕಿನ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಕೃಷಿ ಮಾಡುತ್ತಿರಬೇಕು."
+      },
+      {
+        "id": "kyd_farmer",
+        "field": "farmerCategory",
+        "operator": "IN",
+        "expectedValue": [
+          "small_marginal",
+          "large",
+          "tenant",
+          "woman_farmer",
+          "agricultural_laborer"
+        ],
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Open to All Cultivators & Farm Workers",
+        "titleKn": "ಎಲ್ಲಾ ವರ್ಗದ ಕೃಷಿಕರು ಹಾಗೂ ಕೃಷಿ ಕಾರ್ಮಿಕರಿಗೆ ಮುಕ್ತ",
+        "descriptionEn": "Small, marginal, tenant, and large farmers can rent machinery. Small and marginal farmers receive prioritized booking slots.",
+        "descriptionKn": "ಸಣ್ಣ, ಅತಿ ಸಣ್ಣ ಹಾಗೂ ಗೇಣಿ ರೈತರಿಗೆ ಮೊದಲ ಆದ್ಯತೆಯ ಬುಕಿಂಗ್ ನೀಡಲಾಗುತ್ತದೆ."
+      },
+      {
+        "id": "kyd_fruits_id",
+        "field": "hasFruitsId",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "FRUITS ID Identification",
+        "titleKn": "ಫ್ರೂಟ್ಸ್ ಐಡಿ (FID)",
+        "descriptionEn": "Farmer FRUITS ID is used to apply subsidized government rental tariffs.",
+        "descriptionKn": "ಸಹಾಯಧನ ದರದಲ್ಲಿ ಬಾಡಿಗೆ ಪಡೆಯಲು ಫ್ರೂಟ್ಸ್ ಐಡಿ ಕಡ್ಡಾಯ."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_kyd_fruits_id",
+        "nameEn": "FRUITS Card / Aadhaar Card",
+        "nameKn": "ಫ್ರೂಟ್ಸ್ ಕಾರ್ಡ್ ಅಥವಾ ಆಧಾರ್ ಕಾರ್ಡ್",
+        "descriptionEn": "Proof of farmer registration for booking subsidized machine hours.",
+        "descriptionKn": "ಕೃಷಿ ಯಂತ್ರ ಬುಕಿಂಗ್‌ಗಾಗಿ ಫ್ರೂಟ್ಸ್ ಅಥವಾ ಆಧಾರ್ ಕಾರ್ಡ್.",
+        "issuingAuthority": "RSK / UIDAI",
+        "howToObtainEn": "Carry card to the local CHSC center.",
+        "howToObtainKn": "ಸ್ಥಳೀಯ ಯಂತ್ರಧಾರೆ ಕೇಂದ್ರಕ್ಕೆ ಕೊಂಡೊಯ್ಯಿರಿ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Locate your hobli Krishi Yanthradhare Custom Hiring Center (usually situated near Raitha Samparka Kendra).",
+      "Provide your FRUITS ID or Aadhaar number at the counter.",
+      "Book required machinery (rotavator, harvester, tractor, sprayer) by selecting date and estimated hours.",
+      "Pay standard advance booking deposit based on government-notified hourly rate card.",
+      "Trained certified operator delivers and operates the machinery at your field on scheduled date."
+    ],
+    "applicationStepsKn": [
+      "ನಿಮ್ಮ ಹೋಬಳಿಯ ಕೃಷಿ ಯಂತ್ರಧಾರೆ ಕೇಂದ್ರಕ್ಕೆ (ಸಾಮಾನ್ಯವಾಗಿ ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರದ ಬಳಿ) ಭೇಟಿ ನೀಡಿ.",
+      "ನಿಮ್ಮ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಅಥವಾ ಆಧಾರ್ ಸಂಖ್ಯೆಯನ್ನು ಕೌಂಟರ್‌ನಲ್ಲಿ ನೀಡಿ.",
+      "ನಿಮಗೆ ಅಗತ್ಯವಿರುವ ಯಂತ್ರ, ದಿನಾಂಕ ಮತ್ತು ಗಂಟೆಗಳನ್ನು ನಮೂದಿಸಿ ಬುಕ್ ಮಾಡಿ.",
+      "ಸರ್ಕಾರ ನಿಗದಿಪಡಿಸಿದ ರಿಯಾಯಿತಿ ದರದ ಮುಂಗಡ ಶುಲ್ಕ ಪಾವತಿಸಿ ರಸೀದಿ ಪಡೆಯಿರಿ.",
+      "ತರಬೇತಿ ಪಡೆದ ಚಾಲಕರು ನಿಗದಿತ ದಿನದಂದು ನಿಮ್ಮ ಜಮೀನಿಗೆ ಯಂತ್ರದೊಂದಿಗೆ ಬಂದು ಕೆಲಸ ಮಾಡಿಕೊಡುತ್ತಾರೆ."
+    ],
+    "helplinePhone": "1800-425-3553 / 08256-277215",
+    "assistanceCentresEn": [
+      "Hobli Krishi Yanthradhare Custom Hiring Service Centers (CHSCs)",
+      "Raitha Samparka Kendra",
+      "SKDRDP Taluk Project Office"
+    ],
+    "assistanceCentresKn": [
+      "ಹೋಬಳಿ ಕೃಷಿ ಯಂತ್ರಧಾರೆ ಕೇಂದ್ರಗಳು",
+      "ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರಗಳು",
+      "ಶ್ರೀ ಕ್ಷೇತ್ರ ಧರ್ಮಸ್ಥಳ ಗ್ರಾಮಾಭಿವೃದ್ಧಿ ಯೋಜನೆ (SKDRDP) ಕಚೇರಿ"
+    ]
+  },
+  {
+    "id": "raitha-vidya-nidhi",
+    "nameEn": "Chief Minister's Raitha Vidya Nidhi Scholarship",
+    "nameKn": "ಮುಖ್ಯಮಂತ್ರಿಗಳ ರೈತ ವಿದ್ಯಾನಿಧಿ ವಿದ್ಯಾರ್ಥಿವೇತನ",
+    "taglineEn": "Higher Education Financial Assistance for Sons and Daughters of Karnataka Farmers",
+    "taglineKn": "ರೈತರ ಮಕ್ಕಳಿಗೆ ಉನ್ನತ ವ್ಯಾಸಂಗಕ್ಕಾಗಿ ವಾರ್ಷಿಕ ವಿದ್ಯಾರ್ಥಿವೇತನ",
+    "departmentEn": "Department of Agriculture, Govt. of Karnataka",
+    "departmentKn": "ಕೃಷಿ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ",
+    "category": "Education & Family Welfare",
+    "categoryKn": "ಶಿಕ್ಷಣ ಹಾಗೂ ಕುಟುಂಬ ಕಲ್ಯಾಣ",
+    "financialBenefitEn": "Annual direct scholarship: Boys: ₹2,500 (PUC/ITI), ₹5,000 (BA/B.Sc/B.Com), ₹10,000 (Medical/Engg/Law/Agriculture). Girls receive 10% additional: ₹3,000 to ₹11,000 directly to student Aadhaar-seeded account.",
+    "financialBenefitKn": "ವಾರ್ಷಿಕ ₹2,500 ರಿಂದ ₹11,000 ವರೆಗೆ ನೇರ ವಿದ್ಯಾರ್ಥಿವೇತನ. ಹೆಣ್ಣು ಮಕ್ಕಳಿಗೆ ವಿಶೇಷ ಪ್ರೋತ್ಸಾಹಧನ.",
+    "officialPortalUrl": "https://ssp.postmatric.karnataka.gov.in",
+    "informationUrl": "https://raitamitra.karnataka.gov.in",
+    "lastVerifiedDate": "2026-11-05",
+    "rulesVersion": "2026.3-RVN",
+    "applicationDeadline": "2026-11-22",
+    "deadlineType": "SEASONAL_CUTOFF",
+    "deadlineVerified": true,
+    "deadlineNoteEn": "Annual Karnataka State Scholarship Portal (SSP) post-matric verification & FRUITS linking window.",
+    "deadlineNoteKn": "ಕರ್ನಾಟಕ ಎಸ್‌ಎಸ್‌ಪಿ (SSP) ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಜೋಡಣೆ ಮತ್ತು ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಅವಧಿ.",
+    "conditions": [
+      {
+        "id": "rvn_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident Parent & Student",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ ಪೋಷಕರು ಮತ್ತು ವಿದ್ಯಾರ್ಥಿ",
+        "descriptionEn": "The student and farmer parent must be residents of Karnataka.",
+        "descriptionKn": "ವಿದ್ಯಾರ್ಥಿ ಹಾಗೂ ರೈತ ಪೋಷಕರು ಕರ್ನಾಟಕದ ನಿವಾಸಿಯಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "rvn_land",
+        "field": "hasLandOwnership",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Parent is Registered Landholding Farmer",
+        "titleKn": "ಪೋಷಕರು ಕೃಷಿ ಭೂಮಿ ಹೊಂದಿರುವ ರೈತರಾಗಿರಬೇಕು",
+        "descriptionEn": "Father, mother, or guardian must be a land-owning farmer holding an active FRUITS ID.",
+        "descriptionKn": "ತಂದೆ ಅಥವಾ ತಾಯಿ ಕೃಷಿ ಭೂಮಿಯ ಪಹಣಿ ಮತ್ತು ಫ್ರೂಟ್ಸ್ ಐಡಿ ಹೊಂದಿರಬೇಕು."
+      },
+      {
+        "id": "rvn_education",
+        "field": "hasChildrenInHigherEducation",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Child Enrolled in Post-Matric / Higher Education",
+        "titleKn": "ಮಕ್ಕಳು ಮೆಟ್ರಿಕ್ ನಂತರದ ಉನ್ನತ ಶಿಕ್ಷಣದಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡುತ್ತಿರಬೇಕು",
+        "descriptionEn": "Son or daughter must be enrolled in recognized PUC, ITI, Diploma, Degree, PG, or Professional courses.",
+        "descriptionKn": "ಮಕ್ಕಳು ಪಿಯುಸಿ, ಐಟಿಐ, ಡಿಪ್ಲೋಮಾ, ಪದವಿ, ಸ್ನಾತಕೋತ್ತರ ಅಥವಾ ವೃತ್ತಿಪರ ಕೋರ್ಸ್‌ಗಳಲ್ಲಿ ಓದುತ್ತಿರಬೇಕು."
+      },
+      {
+        "id": "rvn_fruits_id",
+        "field": "hasFruitsId",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "requiresOfficialVerification": true,
+        "titleEn": "Parent FRUITS ID Seeding in SSP",
+        "titleKn": "ಎಸ್‌ಎಸ್‌ಪಿ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಪೋಷಕರ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಜೋಡಣೆ",
+        "descriptionEn": "Parent's FRUITS ID must be linked in Karnataka State Scholarship Portal (SSP).",
+        "descriptionKn": "ವಿದ್ಯಾರ್ಥಿಯ ಎಸ್‌ಎಸ್‌ಪಿ ಅರ್ಜಿಯಲ್ಲಿ ಪೋಷಕರ ಫ್ರೂಟ್ಸ್ ಐಡಿ ದಾಖಲಿಸಿರಬೇಕು."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_rvn_ssp_id",
+        "nameEn": "Student SSP ID (State Scholarship Portal)",
+        "nameKn": "ವಿದ್ಯಾರ್ಥಿ ಎಸ್‌ಎಸ್‌ಪಿ ಗುರುತಿನ ಸಂಖ್ಯೆ",
+        "descriptionEn": "Student registration ID on post-matric SSP portal.",
+        "descriptionKn": "ಕರ್ನಾಟಕ ಸರ್ಕಾರದ ಮೆಟ್ರಿಕ್ ನಂತರದ ವಿದ್ಯಾರ್ಥಿವೇತನ ಪೋರ್ಟಲ್ ಖಾತೆ.",
+        "issuingAuthority": "State Scholarship Portal (SSP)",
+        "portalUrl": "https://ssp.postmatric.karnataka.gov.in",
+        "howToObtainEn": "Register on SSP portal with Aadhaar and college admission details.",
+        "howToObtainKn": "ಆಧಾರ್ ಮತ್ತು ಕಾಲೇಜು ಪ್ರವೇಶ ವಿವರಗಳೊಂದಿಗೆ ಎಸ್‌ಎಸ್‌ಪಿಯಲ್ಲಿ ನೋಂದಾಯಿಸಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_rvn_parent_fruits",
+        "nameEn": "Parent's FRUITS ID Acknowledgement",
+        "nameKn": "ಪೋಷಕರ ಫ್ರೂಟ್ಸ್ ಐಡಿ ಪ್ರತಿ",
+        "descriptionEn": "Official printout or SMS of parent's FRUITS ID.",
+        "descriptionKn": "ತಂದೆ ಅಥವಾ ತಾಯಿಯ ಹೆಸರಿನ ಫ್ರೂಟ್ಸ್ ಗುರುತಿನ ಸಂಖ್ಯೆ.",
+        "issuingAuthority": "FRUITS Portal / RSK",
+        "portalUrl": "https://fruits.karnataka.gov.in",
+        "howToObtainEn": "Check status on FRUITS portal using Aadhaar number.",
+        "howToObtainKn": "ಫ್ರೂಟ್ಸ್ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಆಧಾರ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_rvn_college_bonafide",
+        "nameEn": "College Bonafide & Fee Receipt",
+        "nameKn": "ಕಾಲೇಜು ಬೋನಫೈಡ್ ಮತ್ತು ಶುಲ್ಕ ರಸೀದಿ",
+        "descriptionEn": "Current academic year admission certificate with Student Tracking System (SATS) / UUCMS ID.",
+        "descriptionKn": "ಪ್ರಸಕ್ತ ಸಾಲಿನ ಕಾಲೇಜು ಪ್ರವೇಶ ಪತ್ರ ಮತ್ತು ಶುಲ್ಕ ಪಾವತಿ ರಸೀದಿ.",
+        "issuingAuthority": "Enrolled College / University",
+        "howToObtainEn": "Collect from your college administrative office.",
+        "howToObtainKn": "ನಿಮ್ಮ ಕಾಲೇಜಿನ ಆಡಳಿತ ಕಚೇರಿಯಿಂದ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Ensure farmer parent has a valid FRUITS ID with land survey records seeded.",
+      "Student applies for Post-Matric Scholarship on the Karnataka SSP portal.",
+      "In the SSP application form, enter the parent’s FRUITS ID (FID).",
+      "The portal automatically fetches land ownership details from Bhoomi-FRUITS integration.",
+      "Upon college verification and e-attestation, scholarship amount is directly transferred via DBT to the student’s bank account."
+    ],
+    "applicationStepsKn": [
+      "ರೈತ ಪೋಷಕರು ಫ್ರೂಟ್ಸ್ ಐಡಿ ಹೊಂದಿದ್ದಾರೆ ಎಂಬುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+      "ವಿದ್ಯಾರ್ಥಿಯು ಕರ್ನಾಟಕ ಎಸ್‌ಎಸ್‌ಪಿ (SSP) ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಬೇಕು.",
+      "ಅರ್ಜಿ ನಮೂನೆಯಲ್ಲಿ ಪೋಷಕರ ಫ್ರೂಟ್ಸ್ ಐಡಿ (FID) ಯನ್ನು ನಮೂದಿಸಿ.",
+      "ಪೋರ್ಟಲ್ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಭೂಮಿ-ಫ್ರೂಟ್ಸ್ ಡೇಟಾಬೇಸ್ ಮೂಲಕ ಜಮೀನಿನ ವಿವರಗಳನ್ನು ದೃಢೀಕರಿಸುತ್ತದೆ.",
+      "ಕಾಲೇಜು ದೃಢೀಕರಣದ ನಂತರ ವಿದ್ಯಾರ್ಥಿವೇತನ ನೇರವಾಗಿ ವಿದ್ಯಾರ್ಥಿಯ ಬ್ಯಾಂಕ್ ಖಾತೆಗೆ ಜಮೆಯಾಗುತ್ತದೆ."
+    ],
+    "helplinePhone": "080-35254757 / 1902",
+    "assistanceCentresEn": [
+      "Karnataka State Scholarship Portal (SSP) Helpdesk",
+      "College Scholarship Nodal Officer",
+      "Raitha Samparka Kendra"
+    ],
+    "assistanceCentresKn": [
+      "ಕರ್ನಾಟಕ ರಾಜ್ಯ ವಿದ್ಯಾರ್ಥಿವೇತನ ಪೋರ್ಟಲ್ (SSP) ಸಹಾಯವಾಣಿ",
+      "ಕಾಲೇಜು ಸ್ಕಾಲರ್‌ಶಿಪ್ ನೋಡಲ್ ಅಧಿಕಾರಿ",
+      "ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ"
+    ]
+  },
+  {
+    "id": "raitha-sanjeevini",
+    "nameEn": "Raitha Sanjeevini Accidental Relief Scheme",
+    "nameKn": "ರೈತ ಸಂಜೀವಿನಿ ಅಪಘಾತ ಪರಿಹಾರ ಯೋಜನೆ",
+    "taglineEn": "Emergency Financial Compensation for Farm Accident Victims and Their Nominees",
+    "taglineKn": "ಕೃಷಿ ಕೆಲಸದ ವೇಳೆ ಸಂಭವಿಸುವ ಆಕಸ್ಮಿಕ ಅಪಘಾತಗಳಿಗೆ ತುರ್ತು ಆರ್ಥಿಕ ನೆರವು",
+    "departmentEn": "Karnataka State Agricultural Marketing Board (KSAMB)",
+    "departmentKn": "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಕೃಷಿ ಮಾರಾಟ ಮಂಡಳಿ (ಕೆ.ಎಸ್.ಎ.ಎಂ.ಬಿ)",
+    "category": "Safety & Social Security",
+    "categoryKn": "ಸಾಮಾಜಿಕ ಭದ್ರತೆ",
+    "financialBenefitEn": "Immediate financial compensation: ₹2,00,000 in case of accidental death while undertaking agricultural activities (snakebite, well collapse, tractor overturn, machinery injury, pesticide poisoning); ₹1,00,000 for permanent disability; ₹50,000 for loss of limbs.",
+    "financialBenefitKn": "ಕೃಷಿ ಚಟುವಟಿಕೆ ವೇಳೆ ಆಕಸ್ಮಿಕ ಮರಣ ಹೊಂದಿದರೆ ಕುಟುಂಬಕ್ಕೆ ₹2,00,000, ಶಾಶ್ವತ ಅಂಗವಿಕಲತೆಗೆ ₹1,00,000 ಹಾಗೂ ಗಂಭೀರ ಗಾಯಗಳಿಗೆ ₹50,000 ಪರಿಹಾರ.",
+    "officialPortalUrl": "https://ksamb.karnataka.gov.in",
+    "informationUrl": "https://raitamitra.karnataka.gov.in",
+    "lastVerifiedDate": "2026-10-12",
+    "rulesVersion": "2026.1-RSJ",
+    "applicationDeadline": null,
+    "deadlineType": "ROLLING_OPEN",
+    "deadlineVerified": false,
+    "deadlineNoteEn": "Ongoing claim relief scheme; accident claims must be submitted at APMC within 30 days of incident.",
+    "deadlineNoteKn": "ನಿರಂತರ ಪರಿಹಾರ ಯೋಜನೆ; ಅಪಘಾತ ಸಂಭವಿಸಿದ 30 ದಿನಗಳ ಒಳಗೆ ಎಪಿಎಂಸಿ ಕಚೇರಿಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಬೇಕು.",
+    "conditions": [
+      {
+        "id": "rsj_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident Farmer or Farm Laborer",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ ರೈತ ಅಥವಾ ಕೃಷಿ ಕೂಲಿ ಕಾರ್ಮಿಕ",
+        "descriptionEn": "Accident must occur within Karnataka or while transporting produce to Karnataka APMC yards.",
+        "descriptionKn": "ಅಪಘಾತವು ಕರ್ನಾಟಕ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಅಥವಾ ಕೃಷಿ ಉತ್ಪನ್ನ ಸಾಗಾಟದ ವೇಳೆ ಸಂಭವಿಸಿರಬೇಕು."
+      },
+      {
+        "id": "rsj_age",
+        "field": "age",
+        "operator": "GREATER_THAN_OR_EQUAL",
+        "expectedValue": 18,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Age Requirement (18 to 65 Years)",
+        "titleKn": "ವಯಸ್ಸಿನ ಮಿತಿ (18 ರಿಂದ 65 ವರ್ಷ)",
+        "descriptionEn": "The victim farmer or agricultural worker must be between 18 and 65 years of age on date of incident.",
+        "descriptionKn": "ಅಪಘಾತ ಸಂಭವಿಸಿದ ದಿನದಂದು ವಯಸ್ಸು 18 ರಿಂದ 65 ವರ್ಷದೊಳಗಿರಬೇಕು."
+      },
+      {
+        "id": "rsj_farmer_status",
+        "field": "farmerCategory",
+        "operator": "IN",
+        "expectedValue": [
+          "small_marginal",
+          "large",
+          "tenant",
+          "woman_farmer",
+          "agricultural_laborer"
+        ],
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Cultivator or Agricultural Laborer",
+        "titleKn": "ಕೃಷಿಕ ಅಥವಾ ಕೃಷಿ ಕಾರ್ಮಿಕ",
+        "descriptionEn": "Open to landowning farmers as well as landless agricultural laborers.",
+        "descriptionKn": "ಭೂಮಾಲೀಕ ರೈತರು ಮತ್ತು ಕೃಷಿ ಕೂಲಿ ಕಾರ್ಮಿಕರು ಇಬ್ಬರಿಗೂ ಅನ್ವಯ."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_rsj_fir_police",
+        "nameEn": "FIR & Police Panchanama (For Fatal Accidents)",
+        "nameKn": "ಪೊಲೀಸ್ ಎಫ್‌ಐಆರ್ ಮತ್ತು ಪಂಚನಾಮೆ",
+        "descriptionEn": "Certified copy of First Information Report or VA mahazar in case of snakebite/accidents.",
+        "descriptionKn": "ಹಾವು ಕಡಿತ ಅಥವಾ ಅಪಘಾತದ ಬಗ್ಗೆ ಸ್ಥಳೀಯ ಪೊಲೀಸ್ ಠಾಣೆಯ ದೂರು ಮತ್ತು ಪಂಚನಾಮೆ.",
+        "issuingAuthority": "Local Police Station / Revenue Dept",
+        "howToObtainEn": "Obtain from jurisdictional Police Station.",
+        "howToObtainKn": "ಸ್ಥಳೀಯ ಪೊಲೀಸ್ ಠಾಣೆಯಿಂದ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_rsj_medical_cert",
+        "nameEn": "Government Medical Officer Report / Post-Mortem",
+        "nameKn": "ಸರ್ಕಾರಿ ವೈದ್ಯಾಧಿಕಾರಿಗಳ ವರದಿ / ಮರಣೋತ್ತರ ಪರೀಕ್ಷೆ",
+        "descriptionEn": "Doctor report confirming cause of injury/death due to agricultural activity.",
+        "descriptionKn": "ಕೃಷಿ ಕೆಲಸದ ವೇಳೆ ಅಪಘಾತ ಸಂಭವಿಸಿದೆ ಎಂದು ದೃಢೀಕರಿಸುವ ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆಯ ವೈದ್ಯಕೀಯ ವರದಿ.",
+        "issuingAuthority": "Government Taluk / District Hospital",
+        "howToObtainEn": "From attending Medical Officer.",
+        "howToObtainKn": "ತಾಲೂಕು ಅಥವಾ ಜಿಲ್ಲಾ ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆಯಿಂದ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_rsj_pahani_or_labor_cert",
+        "nameEn": "RTC or Village Accountant Cultivator Certificate",
+        "nameKn": "ಪಹಣಿ ಅಥವಾ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿ ದೃಢೀಕರಣ",
+        "descriptionEn": "Proof that victim was engaged in agriculture.",
+        "descriptionKn": "ಅಪಘಾತಕ್ಕೀಡಾದವರು ಕೃಷಿ ಕಾರ್ಯದಲ್ಲಿ ತೊಡಗಿದ್ದರು ಎಂಬುದಕ್ಕೆ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳ ಪ್ರಮಾಣ ಪತ್ರ.",
+        "issuingAuthority": "Village Administrative Officer (VAO)",
+        "howToObtainEn": "From local Village Administrative Officer.",
+        "howToObtainKn": "ಸ್ಥಳೀಯ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿಗಳಿಂದ.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "In case of accident, notify local APMC Secretary or Raitha Samparka Kendra within 30 days.",
+      "Obtain Medical Report / Post-mortem from government hospital and police mahazar.",
+      "Submit claim form along with RTC or Village Accountant certificate to the nearest APMC yard office.",
+      "APMC committee reviews the application and forwards it to the Karnataka State Agricultural Marketing Board (KSAMB).",
+      "Relief sanction amount is paid via DBT to the injured farmer or nominee bank account."
+    ],
+    "applicationStepsKn": [
+      "ಅಪಘಾತ ಸಂಭವಿಸಿದ 30 ದಿನಗಳ ಒಳಗೆ ಸ್ಥಳೀಯ ಎಪಿಎಂಸಿ (APMC) ಕಾರ್ಯದರ್ಶಿಗೆ ಮಾಹಿತಿ ನೀಡಿ.",
+      "ಸರ್ಕಾರಿ ಆಸ್ಪತ್ರೆಯ ವೈದ್ಯಕೀಯ ವರದಿ ಹಾಗೂ ಪೊಲೀಸ್ ಪಂಚನಾಮೆ ಪ್ರತಿಗಳನ್ನು ಪಡೆದುಕೊಳ್ಳಿ.",
+      "ಪಹಣಿ ಅಥವಾ ಗ್ರಾಮ ಆಡಳಿತಾಧಿಕಾರಿ ದೃಢೀಕರಣದೊಂದಿಗೆ ಎಪಿಎಂಸಿ ಕಚೇರಿಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ.",
+      "ಎಪಿಎಂಸಿ ಸಮಿತಿಯು ಪರಿಶೀಲಿಸಿ ರಾಜ್ಯ ಕೃಷಿ ಮಾರಾಟ ಮಂಡಳಿಗೆ ಅನುಮೋದನೆಗೆ ಕಳುಹಿಸುತ್ತದೆ.",
+      "ಪರಿಹಾರ ಮೊತ್ತವನ್ನು ಸಂತ್ರಸ್ತ ರೈತರಿಗೆ ಅಥವಾ ವಾರಸುದಾರರಿಗೆ ನೇರವಾಗಿ ಡಿಬಿಟಿ ಮೂಲಕ ಪಾವತಿಸಲಾಗುತ್ತದೆ."
+    ],
+    "helplinePhone": "080-22262624",
+    "assistanceCentresEn": [
+      "Nearest Agricultural Produce Market Committee (APMC) Yard Office",
+      "Raitha Samparka Kendra",
+      "Karnataka State Agricultural Marketing Board Head Office, Bengaluru"
+    ],
+    "assistanceCentresKn": [
+      "ಹತ್ತಿರದ ಎಪಿಎಂಸಿ (ಕೃಷಿ ಉತ್ಪನ್ನ ಮಾರುಕಟ್ಟೆ ಸಮಿತಿ) ಕಚೇರಿ",
+      "ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರ",
+      "ಕರ್ನಾಟಕ ರಾಜ್ಯ ಕೃಷಿ ಮಾರಾಟ ಮಂಡಳಿ ಪ್ರಧಾನ ಕಚೇರಿ, ಬೆಂಗಳೂರು"
+    ]
+  },
+  {
+    "id": "yashaswini-health",
+    "nameEn": "Yashaswini Health Insurance Scheme for Rural Co-operative Farmers",
+    "nameKn": "ಗ್ರಾಮೀಣ ಸಹಕಾರಿ ರೈತರ ಯಶಸ್ವಿನಿ ಆರೋಗ್ಯ ರಕ್ಷಾ ಯೋಜನೆ",
+    "taglineEn": "Cashless Hospitalization and Surgical Cover up to ₹5 Lakhs for Cooperative Members",
+    "taglineKn": "ಗ್ರಾಮೀಣ ಸಹಕಾರಿ ರೈತ ಕುಟುಂಬಗಳಿಗೆ ವಾರ್ಷಿಕ ₹5 ಲಕ್ಷದವರೆಗೆ ನಗದು ರಹಿತ ಚಿಕಿತ್ಸೆ",
+    "departmentEn": "Department of Cooperation, Govt. of Karnataka",
+    "departmentKn": "ಸಹಕಾರ ಇಲಾಖೆ, ಕರ್ನಾಟಕ ಸರ್ಕಾರ",
+    "category": "Healthcare & Health Insurance",
+    "categoryKn": "ಆರೋಗ್ಯ ರಕ್ಷಣೆ",
+    "financialBenefitEn": "Cashless treatment covering over 1,650 specified surgical and medical procedures up to ₹5,00,000 per family per year in 570+ empanelled private and government super-specialty hospitals across Karnataka.",
+    "financialBenefitKn": "ಕರ್ನಾಟಕದ 570 ಕ್ಕೂ ಹೆಚ್ಚು ನೋಂದಾಯಿತ ಆಸ್ಪತ್ರೆಗಳಲ್ಲಿ 1,650 ಕ್ಕೂ ಹೆಚ್ಚು ಶಸ್ತ್ರಚಿಕಿತ್ಸೆಗಳಿಗೆ ವಾರ್ಷಿಕ ₹5 ಲಕ್ಷದವರೆಗೆ ಸಂಪೂರ್ಣ ನಗದು ರಹಿತ ಚಿಕಿತ್ಸೆ.",
+    "officialPortalUrl": "https://yashaswini.karnataka.gov.in",
+    "informationUrl": "https://sahakara.kar.gov.in",
+    "lastVerifiedDate": "2026-10-28",
+    "rulesVersion": "2026.4-YAS",
+    "applicationDeadline": "2026-12-15",
+    "deadlineType": "CYCLE_WINDOW",
+    "deadlineVerified": true,
+    "deadlineNoteEn": "Annual rural cooperative society Yashaswini health card enrollment & renewal drive cutoff.",
+    "deadlineNoteKn": "ಗ್ರಾಮೀಣ ಸಹಕಾರ ಸಂಘಗಳ ಮೂಲಕ ಯಶಸ್ವಿನಿ ಆರೋಗ್ಯ ಕಾರ್ಡ್ ನವೀಕರಣ ಮತ್ತು ನೋಂದಣಿ ಅವಧಿ.",
+    "conditions": [
+      {
+        "id": "yas_state",
+        "field": "state",
+        "operator": "EQUALS",
+        "expectedValue": "Karnataka",
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Karnataka Resident",
+        "titleKn": "ಕರ್ನಾಟಕದ ನಿವಾಸಿ",
+        "descriptionEn": "The cooperative member and family must reside in Karnataka.",
+        "descriptionKn": "ಸಹಕಾರಿ ಸದಸ್ಯರು ಹಾಗೂ ಅವರ ಕುಟುಂಬ ಕರ್ನಾಟಕದಲ್ಲಿ ನೆಲೆಸಿರಬೇಕು."
+      },
+      {
+        "id": "yas_cooperative_member",
+        "field": "isCooperativeMember",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": true,
+        "isExclusion": false,
+        "titleEn": "Rural Cooperative Society Membership (Min 3 Months)",
+        "titleKn": "ಗ್ರಾಮೀಣ ಸಹಕಾರ ಸಂಘದ ಸದಸ್ಯತ್ವ (ಕನಿಷ್ಠ 3 ತಿಂಗಳು)",
+        "descriptionEn": "Must be an active member of a registered Primary Agricultural Credit Cooperative Society (PACS), DCC Bank, Milk Producers Union, or Weavers/Fisheries cooperative society.",
+        "descriptionKn": "ಪ್ರಾಥಮಿಕ ಕೃಷಿ ಪತ್ತಿನ ಸಹಕಾರ ಸಂಘ (PACS) ಅಥವಾ ಹಾಲು ಉತ್ಪಾದಕರ ಸಹಕಾರ ಸಂಘದಲ್ಲಿ ಕನಿಷ್ಠ 3 ತಿಂಗಳಿಂದ ಸದಸ್ಯರಾಗಿರಬೇಕು."
+      },
+      {
+        "id": "yas_excl_insurance",
+        "field": "isEnrolledInEsiOrCghs",
+        "operator": "BOOLEAN_TRUE",
+        "expectedValue": true,
+        "isMandatory": false,
+        "isExclusion": true,
+        "titleEn": "Exclusion: Holders of ESI / CGHS / Corporate Medical Cover",
+        "titleKn": "ಹೊರಗಿಡುವಿಕೆ: ಇಎಸ್‌ಐ ಅಥವಾ ಸಿಜಿಎಚ್‌ಎಸ್ ಸೌಲಭ್ಯ ಉಳ್ಳವರು",
+        "descriptionEn": "Employees covered under statutory corporate insurance schemes (ESI, CGHS, State Govt Health Scheme) are excluded.",
+        "descriptionKn": "ಇಎಸ್‌ಐ ಅಥವಾ ಸರ್ಕಾರಿ ನೌಕರರ ಆರೋಗ್ಯ ವಿಮೆ ಹೊಂದಿರುವವರು ಈ ಯೋಜನೆಗೆ ಅನರ್ಹರು."
+      }
+    ],
+    "prerequisites": [
+      {
+        "id": "doc_yas_membership_card",
+        "nameEn": "Co-operative Society Share / Membership Certificate",
+        "nameKn": "ಸಹಕಾರ ಸಂಘದ ಸದಸ್ಯತ್ವ ಪ್ರಮಾಣ ಪತ್ರ ಅಥವಾ ಪಾಸ್‌ಬುಕ್",
+        "descriptionEn": "Membership passbook issued by the local PACS, DCCB, or Milk Dairy Cooperative.",
+        "descriptionKn": "ಸ್ಥಳೀಯ ಪ್ರಾಥಮಿಕ ಕೃಷಿ ಪತ್ತಿನ ಸಹಕಾರ ಸಂಘ ಅಥವಾ ಡೈರಿ ಸಂಘ ನೀಡಿದ ಸದಸ್ಯತ್ವ ಪಾಸ್‌ಬುಕ್.",
+        "issuingAuthority": "Rural Cooperative Society / DCC Bank",
+        "howToObtainEn": "Contact your village cooperative society secretary.",
+        "howToObtainKn": "ನಿಮ್ಮ ಗ್ರಾಮದ ಸಹಕಾರ ಸಂಘದ ಕಾರ್ಯದರ್ಶಿಯಿಂದ ಪಡೆಯಿರಿ.",
+        "isMandatory": true
+      },
+      {
+        "id": "doc_yas_ration_card",
+        "nameEn": "Ration Card (Family Proof)",
+        "nameKn": "ಪಡಿತರ ಚೀಟಿ (ಕುಟುಂಬದ ಸದಸ್ಯರ ವಿವರಕ್ಕೆ)",
+        "descriptionEn": "Valid BPL/APL ration card showing enrolled family dependents.",
+        "descriptionKn": "ಕುಟುಂಬದ ಸದಸ್ಯರ ಹೆಸರುಗಳಿರುವ ಪಡಿತರ ಚೀಟಿ ಪ್ರತಿ.",
+        "issuingAuthority": "Food and Civil Supplies Department",
+        "howToObtainEn": "Aahara portal or Grama One.",
+        "howToObtainKn": "ಆಹಾರ ಪೋರ್ಟಲ್ ಅಥವಾ ಗ್ರಾಮ ಒನ್.",
+        "isMandatory": true
+      }
+    ],
+    "applicationStepsEn": [
+      "Visit your local Primary Agricultural Credit Co-operative Society (PACS) or Milk Producers Cooperative.",
+      "Submit family Aadhaar copies and membership passbook with annual nominal contribution (₹500 for rural family of 4).",
+      "Cooperative secretary registers family details on the Karnataka Yashaswini portal.",
+      "Yashaswini Smart UHID Card is generated with unique patient ID.",
+      "Present Yashaswini UHID card at any network hospital reception for immediate pre-authorization and cashless admission."
+    ],
+    "applicationStepsKn": [
+      "ನಿಮ್ಮ ಸ್ಥಳೀಯ ಪ್ರಾಥಮಿಕ ಕೃಷಿ ಪತ್ತಿನ ಸಹಕಾರ ಸಂಘ (ಸೊಸೈಟಿ) ಅಥವಾ ಹಾಲು ಉತ್ಪಾದಕರ ಸಂಘಕ್ಕೆ ಭೇಟಿ ನೀಡಿ.",
+      "ಕುಟುಂಬದ ಎಲ್ಲರ ಆಧಾರ್ ಮತ್ತು ಪಡಿತರ ಚೀಟಿ ನೀಡಿ ವಾರ್ಷಿಕ ವಂತಿಗೆ (4 ಸದಸ್ಯರ ಕುಟುಂಬಕ್ಕೆ ₹500) ಪಾವತಿಸಿ.",
+      "ಸಂಘದ ಕಾರ್ಯದರ್ಶಿಗಳು ಯಶಸ್ವಿನಿ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ನಿಮ್ಮ ಕುಟುಂಬದ ವಿವರ ನಮೂದಿಸುತ್ತಾರೆ.",
+      "ಯುಎಚ್‌ಐಡಿ (UHID) ಸಂಖ್ಯೆ ಹೊಂದಿರುವ ಯಶಸ್ವಿನಿ ಸ್ಮಾರ್ಟ್ ಕಾರ್ಡ್ ನೀಡಲಾಗುತ್ತದೆ.",
+      "ಯಾವುದೇ ನೋಂದಾಯಿತ ನೆಟ್‌ವರ್ಕ್ ಆಸ್ಪತ್ರೆಯಲ್ಲಿ ಈ ಕಾರ್ಡ್ ತೋರಿಸಿ ನಗದು ರಹಿತ ಚಿಕಿತ್ಸೆ ಪಡೆಯಿರಿ."
+    ],
+    "helplinePhone": "1800-425-0333 / 080-22283838",
+    "assistanceCentresEn": [
+      "Local Village Primary Agricultural Cooperative Society (PACS)",
+      "DCC Bank Taluk Branch",
+      "Yashaswini Suvarna Arogya Suraksha Trust Desk at Network Hospitals"
+    ],
+    "assistanceCentresKn": [
+      "ಸ್ಥಳೀಯ ಗ್ರಾಮದ ಪ್ರಾಥಮಿಕ ಕೃಷಿ ಪತ್ತಿನ ಸಹಕಾರ ಸಂಘ (PACS)",
+      "ಡಿಸಿಸಿ ಬ್ಯಾಂಕ್ ತಾಲೂಕು ಶಾಖೆ",
+      "ನೆಟ್‌ವರ್ಕ್ ಆಸ್ಪತ್ರೆಗಳಲ್ಲಿರುವ ಯಶಸ್ವಿನಿ ಆರೋಗ್ಯ ಮಿತ್ರ ಡೆಸ್ಕ್"
+    ]
+  }
+]

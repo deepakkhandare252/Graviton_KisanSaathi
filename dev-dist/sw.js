@@ -67,7 +67,7 @@ if (!self.define) {
     });
   };
 }
-define(['./workbox-a8882f71'], (function (workbox) { 'use strict';
+define(['./workbox-cbd8b882'], (function (workbox) { 'use strict';
 
   self.skipWaiting();
   workbox.clientsClaim();
@@ -81,7 +81,7 @@ define(['./workbox-a8882f71'], (function (workbox) { 'use strict';
     "revision": "3ca0b8505b4bec776b69afdba2768812"
   }, {
     "url": "/index.html",
-    "revision": "0.j8ehrr96i9g"
+    "revision": "0.9vjc0etk4dc"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("/index.html"), {
@@ -93,20 +93,14 @@ define(['./workbox-a8882f71'], (function (workbox) { 'use strict';
   }) => /^\/api\/(auth|saved-schemes|applications|notifications|reminders|eligibility|assistant)(\/.*)?$/.test(url.pathname), new workbox.NetworkOnly(), 'GET');
   workbox.registerRoute(({
     url
-  }) => /^\/api\/schemes(\/.*)?$/.test(url.pathname), new workbox.NetworkFirst({
-    "cacheName": "kss-public-schemes-v1",
-    "networkTimeoutSeconds": 4,
-    plugins: [new workbox.CacheableResponsePlugin({
-      statuses: [200]
-    }), new workbox.ExpirationPlugin({
-      maxEntries: 50,
-      maxAgeSeconds: 604800
-    })]
-  }), 'GET');
+  }) => /^\/api\/schemes(\/.*)?$/.test(url.pathname), new workbox.NetworkOnly(), 'GET');
   workbox.registerRoute(/^https:\/\/fonts\.googleapis\.com\/.*/i, new workbox.StaleWhileRevalidate({
     "cacheName": "kss-google-fonts-css-v1",
     plugins: [new workbox.CacheableResponsePlugin({
       statuses: [0, 200]
+    }), new workbox.ExpirationPlugin({
+      maxEntries: 10,
+      maxAgeSeconds: 604800
     })]
   }), 'GET');
   workbox.registerRoute(/^https:\/\/fonts\.gstatic\.com\/.*/i, new workbox.CacheFirst({

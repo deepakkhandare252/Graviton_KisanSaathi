@@ -1,7 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
 import { FarmerProfile } from '../types/scheme';
 
-export const PUBLIC_SCHEME_STALE_MS = 15 * 60 * 1000; // 15 minutes for verified policy catalog
+export const PUBLIC_SCHEME_STALE_MS = 5 * 60 * 1000; // Match the public scheme HTTP cache lifetime
 export const USER_DYNAMIC_STALE_MS = 5 * 60 * 1000; // 5 minutes for saved schemes, applications, reminders
 export const NOTIFICATIONS_STALE_MS = 60 * 1000; // 1 minute for alerts
 export const GC_TIME_MS = 30 * 60 * 1000; // 30 minutes inactive cache retention

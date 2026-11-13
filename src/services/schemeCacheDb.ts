@@ -4,6 +4,7 @@ import { SchemeDefinition } from '../types/scheme';
 const DB_NAME = 'kisan_scheme_saathi_cache';
 const DB_VERSION = 1;
 const CATALOG_CACHE_KEY = 'public:schemes:catalog:v1';
+export const PUBLIC_SCHEME_CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 export interface CachedSchemeEnvelope<T> {
   cacheKey: string;
@@ -92,7 +93,8 @@ export function isCacheEntryFresh(cachedTimestamp: string | null | undefined, ma
   if (!cachedTimestamp) return false;
   const parsed = Date.parse(cachedTimestamp);
   if (Number.isNaN(parsed)) return false;
-  return Date.now() - parsed <= maxAgeMs;
+  const age = Date.now() - parsed;
+  return age >= 0 && age <= maxAgeMs;
 }
 
 export function buildCatalogEnvelope(
@@ -169,7 +171,12 @@ export const schemeCacheDb = {
     if (db) {
       try {
         const entry = await db.get('schemes_catalog', CATALOG_CACHE_KEY);
-        if (entry && Array.isArray(entry.cachedData) && entry.cachedData.length > 0) {
+        if (
+          entry &&
+          Array.isArray(entry.cachedData) &&
+          entry.cachedData.length > 0 &&
+          isCacheEntryFresh(entry.cachedTimestamp, PUBLIC_SCHEME_CACHE_TTL_MS)
+        ) {
           return entry;
         }
       } catch {
@@ -180,11 +187,16 @@ export const schemeCacheDb = {
     try {
       if (typeof localStorage !== 'undefined') {
         const raw = localStorage.getItem('kss_cached_schemes');
+        const cachedTimestamp = localStorage.getItem('kss_cached_timestamp');
         if (raw) {
           const parsed = JSON.parse(raw) as SchemeDefinition[];
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (
+            Array.isArray(parsed) &&
+            parsed.length > 0 &&
+            isCacheEntryFresh(cachedTimestamp, PUBLIC_SCHEME_CACHE_TTL_MS)
+          ) {
             return buildCatalogEnvelope(parsed, {
-              cachedTimestamp: localStorage.getItem('kss_cached_timestamp') || undefined,
+              cachedTimestamp: cachedTimestamp || undefined,
               sourceVersion: localStorage.getItem('kss_cached_version') || undefined,
               lastVerifiedDate: localStorage.getItem('kss_last_verified_date') || undefined
             });
@@ -222,7 +234,9 @@ export const schemeCacheDb = {
     if (db) {
       try {
         const entry = await db.get('scheme_details', `scheme:${schemeId}`);
-        if (entry) return entry;
+        if (entry && isCacheEntryFresh(entry.cachedTimestamp, PUBLIC_SCHEME_CACHE_TTL_MS)) {
+          return entry;
+        }
       } catch {
         // ignore
       }
@@ -264,7 +278,9 @@ export const schemeCacheDb = {
     if (db) {
       try {
         const entry = await db.get('scheme_guides', `guide:${schemeId}`);
-        if (entry) return entry;
+        if (entry && isCacheEntryFresh(entry.cachedTimestamp, PUBLIC_SCHEME_CACHE_TTL_MS)) {
+          return entry;
+        }
       } catch {
         // ignore
       }

@@ -1,7 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { VERIFIED_SCHEMES } from '../data/schemesData.ts';
-import { buildCatalogEnvelope, isCacheEntryFresh, schemeCacheDb } from './schemeCacheDb.ts';
+import {
+  buildCatalogEnvelope,
+  isCacheEntryFresh,
+  PUBLIC_SCHEME_CACHE_TTL_MS,
+  schemeCacheDb
+} from './schemeCacheDb.ts';
 
 test('buildCatalogEnvelope separates cachedTimestamp from official lastVerifiedDate', () => {
   const cachedAt = '2026-11-13T10:30:00.000Z';
@@ -24,9 +29,13 @@ test('buildCatalogEnvelope separates cachedTimestamp from official lastVerifiedD
 test('isCacheEntryFresh validates cache age accurately', () => {
   const recent = new Date(Date.now() - 60_000).toISOString();
   const expired = new Date(Date.now() - 2 * 60 * 60_000).toISOString();
+  const beyondSchemeTtl = new Date(Date.now() - PUBLIC_SCHEME_CACHE_TTL_MS - 1).toISOString();
+  const future = new Date(Date.now() + 60_000).toISOString();
 
   assert.equal(isCacheEntryFresh(recent, 5 * 60_000), true);
   assert.equal(isCacheEntryFresh(expired, 5 * 60_000), false);
+  assert.equal(isCacheEntryFresh(beyondSchemeTtl, PUBLIC_SCHEME_CACHE_TTL_MS), false);
+  assert.equal(isCacheEntryFresh(future, PUBLIC_SCHEME_CACHE_TTL_MS), false);
   assert.equal(isCacheEntryFresh(null, 5 * 60_000), false);
   assert.equal(isCacheEntryFresh('not-a-date', 5 * 60_000), false);
 });

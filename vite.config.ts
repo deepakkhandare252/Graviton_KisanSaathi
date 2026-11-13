@@ -40,29 +40,22 @@ export default defineConfig(() => {
               handler: 'NetworkOnly',
               method: 'GET'
             },
-            // Public verified scheme catalog & guides: NetworkFirst with offline fallback cache
+            // Public scheme data falls back through the freshness-checked IndexedDB store.
             {
               urlPattern: ({ url }) => /^\/api\/schemes(\/.*)?$/.test(url.pathname),
-              handler: 'NetworkFirst',
-              method: 'GET',
-              options: {
-                cacheName: 'kss-public-schemes-v1',
-                networkTimeoutSeconds: 4,
-                cacheableResponse: {
-                  statuses: [200]
-                },
-                expiration: {
-                  maxEntries: 50,
-                  maxAgeSeconds: 7 * 24 * 60 * 60
-                }
-              }
+              handler: 'NetworkOnly',
+              method: 'GET'
             },
             {
               urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
               handler: 'StaleWhileRevalidate',
               options: {
                 cacheName: 'kss-google-fonts-css-v1',
-                cacheableResponse: { statuses: [0, 200] }
+                cacheableResponse: { statuses: [0, 200] },
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 7 * 24 * 60 * 60
+                }
               }
             },
             {
