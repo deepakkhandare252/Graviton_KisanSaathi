@@ -1,6 +1,8 @@
 import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import dotenv from 'dotenv';
+import { spawn } from 'child_process';
+import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
@@ -36,6 +38,7 @@ if (portFlagIndex !== -1 && args[portFlagIndex + 1]) {
 const PORT =
   argPort ||
   (process.env.PORT && process.env.PORT !== '8080' ? parseInt(process.env.PORT, 10) : 3000);
+const LOCAL_TTS_PORT = 3211;
 
 app.use(express.json());
 
@@ -864,6 +867,38 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.post('/api/tts', async (req, res) => {
+  const { text, language } = req.body || {};
+  if (typeof text !== 'string' || !text.trim() || text.length > 600) {
+    return res.status(400).json({ error: 'Text must contain 1 to 600 characters.' });
+  }
+  if (language !== 'en' && language !== 'kn') {
+    return res.status(400).json({ error: 'Unsupported speech language.' });
+  }
+
+  try {
+    const response = await fetch(`http://127.0.0.1:${LOCAL_TTS_PORT}/synthesize`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, language })
+    });
+    if (!response.ok) {
+      const error = await response.text();
+      console.error(`[local-tts] Synthesis failed (${response.status}): ${error}`);
+      return res.status(503).json({ error: 'The local voice engine could not read this option.' });
+    }
+
+    const audio = Buffer.from(await response.arrayBuffer());
+    res.setHeader('Cache-Control', 'no-store');
+    return res.type('audio/wav').send(audio);
+  } catch (error) {
+    console.error('[local-tts] Local voice worker is unavailable:', error);
+    return res.status(503).json({
+      error: 'Local voice service is unavailable. Run npm run setup:tts and restart the app.'
+    });
+  }
+});
+
 app.get('/api/schemes', (req, res) => {
   const categoryFilter = req.query.category as string;
   let schemes = VERIFIED_SCHEMES;
@@ -1022,6 +1057,31 @@ app.all('/api/*', (_req, res) => {
 // ==========================================
 
 async function startServer() {
+  const venvPython = path.join(
+    __dirname,
+    '.venv-tts',
+    process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python'
+  );
+  const pythonExecutable =
+    process.env.TTS_PYTHON ||
+    (existsSync(venvPython) ? venvPython : process.platform === 'win32' ? 'python' : 'python3');
+  const ttsWorker = spawn(pythonExecutable, [path.join(__dirname, 'tts', 'server.py')], {
+    env: {
+      ...process.env,
+      TTS_MODELS_DIR: path.join(__dirname, '.tts-models'),
+      TTS_PORT: String(LOCAL_TTS_PORT)
+    },
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+  ttsWorker.stdout?.on('data', (data) => console.log(data.toString().trimEnd()));
+  ttsWorker.stderr?.on('data', (data) => console.error(data.toString().trimEnd()));
+  ttsWorker.on('error', (error) => {
+    console.error('[local-tts] Could not start Python voice worker:', error.message);
+  });
+  process.once('exit', () => {
+    if (!ttsWorker.killed) ttsWorker.kill();
+  });
+
   if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.resolve(__dirname, 'dist')));
     app.get('*', (_req, res) => {

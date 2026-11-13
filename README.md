@@ -37,10 +37,17 @@ Indian agriculture features dozens of Central and State schemes (PM-KISAN, PMFBY
   - 100% full translations in **Kannada (ಕನ್ನಡ)** and **English** across all forms, buttons, condition breakdowns, checklists, and guides.
 - **Progressive Web App (PWA) & Multi-Layer Caching**:
   - **TanStack Query**: Centralized `QueryClient` with user-scoped query keys (`["saved-schemes", userId]`, `["applications", userId]`), bounded retries, request deduplication, and `refetchOnReconnect`.
-  - **IndexedDB (`idb`)**: Persists public Karnataka scheme rules, checklists, and application portal guides (`kisan_scheme_saathi_cache`), separating local cache timestamps (`cachedTimestamp`) from official rule verification dates (`lastVerifiedDate`).
-  - **Service Worker (`vite-plugin-pwa` / Workbox)**: Precaches static assets and applies `NetworkFirst` caching strictly to public `GET /api/schemes*` routes.
+  - **IndexedDB (`idb`)**: Persists public Karnataka scheme rules, checklists, and application portal guides (`kisan_scheme_saathi_cache`) for up to seven days, separating local cache timestamps (`cachedTimestamp`) from official rule verification dates (`lastVerifiedDate`). Expired copies are ignored; offline fallback uses bundled rules with offline/verification-date indicators.
+  - **Service Worker (`vite-plugin-pwa` / Workbox)**: Precaches versioned static assets; scheme API requests stay network-only and use the freshness-checked IndexedDB cache for offline fallback. Google Fonts CSS is bounded to ten entries/seven days; font files to twenty entries/one year.
+  - **Express production HTTP caching**: Vite's content-hashed `/assets/` files are immutable for one year; HTML and unhashed files revalidate. Public scheme API responses have a five-minute TTL and require revalidation after expiry.
   - **Backend Caffeine Cache (`backend/`)**: `@EnableCaching` + `CaffeineCacheManager` for `schemesCatalog`, `schemeDetails`, `schemeChecklists`, and `schemeGuides` (30-min TTL, stats & eviction support).
   - **Strict Security Boundaries**: Auth routes, SMS OTPs, JWTs, eligibility API calls, saved schemes, and private application records are never cached in Service Worker `CacheStorage` or public IndexedDB stores (`Cache-Control: no-store`). All user-scoped query caches are purged immediately on sign-out, account switch, or `401` responses.
+
+### Cache refresh and diagnostics
+
+- In **Settings → Offline Management**, use **Refresh Scheme Cache** to fetch the current public catalog, or **Clear Local Cache** to clear this device's IndexedDB scheme copy. Online sync repopulates it.
+- The Express API logs `[cache] MISS` when it serves a public scheme response and `[cache] HIT` when it returns a conditional `304` revalidation. A fresh browser/CDN cache hit does not reach Express, so it cannot appear in server logs.
+- The Express scheme catalog is loaded into memory from bundled data; the JSON-file user store has no expensive query that benefits from another server-side cache. No Redis cache or CDN is enabled by default.
 
 ---
 
@@ -64,6 +71,16 @@ Indian agriculture features dozens of Central and State schemes (PM-KISAN, PMFBY
 npm run dev
 # Starts server.ts on port 3000 with Vite middleware and REST APIs
 ```
+
+### Local Read-Aloud Voices:
+```bash
+npm run setup:tts
+npm run dev
+```
+
+The one-time setup installs a local Python ONNX runtime and downloads approximately 150 MB of English and Kannada voice models. Speech is generated on the machine running the app; selected answers are not sent to a third-party speech API. English uses the model's male voice and Kannada uses its female voice. The English and Kannada models are [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); model and dataset attribution is provided in their [English model card](https://huggingface.co/sulabhkatiyar/indic-tiny-tts-english) and [Kannada model card](https://huggingface.co/sulabhkatiyar/indic-tiny-tts-kannada).
+
+The read-aloud feature speaks the complete selected questionnaire option, including its description and checked/unchecked answer, in the chosen app language. Voice models are Indic Tiny TTS by Sulabh Katiyar; training data includes AI4Bharat's Rasa and IISc SPIRE Lab's LIMMITS 2024 corpus. The Kannada model card notes that consent for release of its female speaker voice was not documented by the source corpus organizers.
 
 ### Running Logic Unit Tests:
 ```bash

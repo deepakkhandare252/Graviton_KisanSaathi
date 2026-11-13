@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ArrowLeft,
@@ -8,9 +8,11 @@ import {
   Tractor,
   Droplets,
   FileCheck,
-  RotateCcw
+  RotateCcw,
+  Volume2
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useToast } from '../contexts/ToastContext';
 import { KARNATAKA_DISTRICTS } from '../data/karnatakaDistricts';
 import { FarmerProfile } from '../types/scheme';
 
@@ -19,13 +21,36 @@ interface QuestionnairePageProps {
   onEvaluate: (profile: Partial<FarmerProfile>) => void;
 }
 
+const DISTRICT_REGION_NAMES_KN: Record<(typeof KARNATAKA_DISTRICTS)[number]['region'], string> = {
+  'Old Mysuru': 'ಹಳೆಯ ಮೈಸೂರು',
+  'Kalyana Karnataka': 'ಕಲ್ಯಾಣ ಕರ್ನಾಟಕ',
+  'Kittur Karnataka': 'ಕಿತ್ತೂರು ಕರ್ನಾಟಕ',
+  Coastal: 'ಕರಾವಳಿ',
+  Central: 'ಮಧ್ಯ ಕರ್ನಾಟಕ'
+};
+
 export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
   initialProfile,
   onEvaluate
 }) => {
   const { t, language } = useLanguage();
+  const { showToast } = useToast();
 
   const [step, setStep] = useState(1);
+  const hasWarnedAboutVoiceFallback = useRef(false);
+  const speechRequestId = useRef(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioUrlRef = useRef<string | null>(null);
+
+  useEffect(
+    () => () => {
+      speechRequestId.current += 1;
+      audioRef.current?.pause();
+      if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current);
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    },
+    []
+  );
 
   const defaultProfile: Partial<FarmerProfile> = {
     state: 'Karnataka',
@@ -72,6 +97,170 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
         return next;
       });
     }
+  };
+
+  const speakSelection = async (text: string) => {
+    const requestId = ++speechRequestId.current;
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    audioRef.current?.pause();
+    audioRef.current = null;
+    if (audioUrlRef.current) {
+      URL.revokeObjectURL(audioUrlRef.current);
+      audioUrlRef.current = null;
+    }
+
+    try {
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, language })
+      });
+      if (!response.ok) {
+        throw new Error(`Local speech service returned ${response.status}`);
+      }
+
+      const audioUrl = URL.createObjectURL(await response.blob());
+      if (requestId !== speechRequestId.current) {
+        URL.revokeObjectURL(audioUrl);
+        return;
+      }
+
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+      audioUrlRef.current = audioUrl;
+      audio.addEventListener(
+        'ended',
+        () => {
+          if (audioRef.current === audio) audioRef.current = null;
+          if (audioUrlRef.current === audioUrl) {
+            URL.revokeObjectURL(audioUrl);
+            audioUrlRef.current = null;
+          }
+        },
+        { once: true }
+      );
+      await audio.play();
+    } catch (error) {
+      if (requestId !== speechRequestId.current) return;
+      console.error('Local read-aloud failed:', error);
+      audioRef.current?.pause();
+      audioRef.current = null;
+      if (audioUrlRef.current) {
+        URL.revokeObjectURL(audioUrlRef.current);
+        audioUrlRef.current = null;
+      }
+
+      if (!('speechSynthesis' in window)) {
+        showToast({
+          variant: 'error',
+          title: language === 'kn' ? 'ಧ್ವನಿ ಸೇವೆ ಲಭ್ಯವಿಲ್ಲ' : 'Speech unavailable',
+          description:
+            language === 'kn'
+              ? 'ಸ್ಥಳೀಯ ಮತ್ತು ಸಾಧನದ ಧ್ವನಿ ಸೇವೆಗಳು ಲಭ್ಯವಿಲ್ಲ.'
+              : 'Neither local nor device speech is available.'
+        });
+        return;
+      }
+
+      const browserSpeech = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(text);
+      const languageCode = language === 'kn' ? 'kn' : 'en';
+      const genderPattern =
+        language === 'kn'
+          ? /\b(female|woman|feminine|nandini|kavya|sowmya|soumy[a]?)\b/i
+          : /\b(male|man|masculine|david|mark|guy|james|daniel|rishi)\b/i;
+      const languageVoices = browserSpeech
+        .getVoices()
+        .filter((voice) => voice.lang.toLowerCase().split('-')[0] === languageCode);
+      const preferredVoice = languageVoices.find((voice) =>
+        genderPattern.test(`${voice.name} ${voice.voiceURI}`)
+      );
+      utterance.lang = language === 'kn' ? 'kn-IN' : 'en-IN';
+      utterance.voice = preferredVoice ?? languageVoices[0] ?? null;
+      browserSpeech.cancel();
+      browserSpeech.speak(utterance);
+
+      if (!hasWarnedAboutVoiceFallback.current) {
+        hasWarnedAboutVoiceFallback.current = true;
+        showToast({
+          variant: 'info',
+          title: language === 'kn' ? 'ಸ್ಥಳೀಯ ಧ್ವನಿ ಲಭ್ಯವಿಲ್ಲ' : 'Offline voice unavailable',
+          description:
+            language === 'kn'
+              ? 'ಸ್ಥಳೀಯ ಧ್ವನಿ ಸೇವೆ ಲಭ್ಯವಿಲ್ಲ. ಸಾಧನದ ಧ್ವನಿಯನ್ನು ಬಳಸಲಾಗುತ್ತಿದೆ.'
+              : 'The local voice service is unavailable. Using the device voice instead.'
+        });
+      }
+    }
+  };
+
+  const speakBooleanSelection = (label: string, description: string, selected: boolean) => {
+    const answer =
+      language === 'kn'
+        ? selected
+          ? 'ಹೌದು'
+          : 'ಇಲ್ಲ'
+        : selected
+          ? 'Yes'
+          : 'No';
+    speakSelection(`${label}. ${description}. ${answer}`);
+  };
+
+  const getDistrictOptionLabel = (district: (typeof KARNATAKA_DISTRICTS)[number]) =>
+    language === 'kn'
+      ? `${district.nameKn} (${DISTRICT_REGION_NAMES_KN[district.region]})`
+      : `${district.nameEn} (${district.region})`;
+
+  const landAcresQuestion = t('questionnaire.landAcresQuestion');
+  const landAcresHint = t('questionnaire.landAcresHint');
+  const annualIncomeQuestion = t('questionnaire.annualIncomeQuestion');
+  const annualIncomeHint = t('questionnaire.annualIncomeHint');
+  const farmerAgeQuestion = t('questionnaire.farmerAgeQuestion');
+  const farmerAgeHint = t('questionnaire.farmerAgeHint');
+  const socialCategoryOptions = [
+    { value: 'GEN', label: t('questionnaire.genCategory') },
+    { value: 'SC', label: t('questionnaire.scCategory') },
+    { value: 'ST', label: t('questionnaire.stCategory') },
+    { value: 'OBC_CAT_1', label: t('questionnaire.obcCat1') },
+    { value: 'OBC_2A', label: t('questionnaire.obc2A') },
+    { value: 'OBC_2B', label: t('questionnaire.obc2B') },
+    { value: 'OBC_3A', label: t('questionnaire.obc3A') },
+    { value: 'OBC_3B', label: t('questionnaire.obc3B') },
+    { value: 'MINORITY', label: t('questionnaire.minority') }
+  ];
+
+  const renderReadAloudButton = (text: string, fieldLabel: string) => {
+    const ariaLabel =
+      language === 'kn'
+        ? `${fieldLabel} ಧ್ವನಿಯಾಗಿ ಓದಿ`
+        : `Read ${fieldLabel} aloud`;
+
+    return (
+      <button
+        type="button"
+        onClick={() => speakSelection(text)}
+        disabled={!text.trim()}
+        aria-label={ariaLabel}
+        title={ariaLabel}
+        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-[#238B57] hover:bg-emerald-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+      >
+        <Volume2 className="w-4 h-4" aria-hidden="true" />
+      </button>
+    );
+  };
+
+  const renderInputQuestionButton = (
+    question: string,
+    hint: string,
+    fieldLabel: string,
+    currentAnswer: string
+  ) => {
+    const prompt = `${question}. ${hint}`;
+    const answer = currentAnswer.trim()
+      ? `${prompt}. ${t('questionnaire.currentAnswer')}: ${currentAnswer}`
+      : prompt;
+
+    return renderReadAloudButton(answer, fieldLabel);
   };
 
   const validateStep = (currentStep: number): boolean => {
@@ -246,21 +435,51 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
             {/* Karnataka District */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t('questionnaire.district')} *
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.district')} *
+                </label>
+                {renderReadAloudButton(
+                  t('questionnaire.districtQuestion'),
+                  t('questionnaire.district')
+                )}
+              </div>
               <select
                 value={formData.district || ''}
-                onChange={(e) => updateField('district', e.target.value)}
+                onFocus={() => speakSelection(t('questionnaire.districtQuestion'))}
+                onChange={(e) => {
+                  updateField('district', e.target.value);
+                  const district = KARNATAKA_DISTRICTS.find((item) => item.id === e.target.value);
+                  if (district) speakSelection(getDistrictOptionLabel(district));
+                }}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-[#238B57] focus:outline-none"
               >
                 <option value="">-- {t('questionnaire.selectDistrict')} --</option>
                 {KARNATAKA_DISTRICTS.map((dist) => (
                   <option key={dist.id} value={dist.id}>
-                    {language === 'kn' ? dist.nameKn : dist.nameEn} ({dist.region})
+                    {getDistrictOptionLabel(dist)}
                   </option>
                 ))}
               </select>
+              <details className="mt-2">
+                <summary className="cursor-pointer text-[11px] font-medium text-[#238B57]">
+                  {t('questionnaire.listenOptions')}
+                </summary>
+                <div className="mt-2 max-h-56 space-y-1 overflow-y-auto rounded-lg border border-slate-200 p-2">
+                  {KARNATAKA_DISTRICTS.map((district) => {
+                    const label = getDistrictOptionLabel(district);
+                    return (
+                      <div
+                        key={district.id}
+                        className="flex items-center justify-between gap-2 text-xs text-slate-700"
+                      >
+                        <span>{label}</span>
+                        {renderReadAloudButton(label, label)}
+                      </div>
+                    );
+                  })}
+                </div>
+              </details>
               {errors.district && (
                 <p className="text-xs text-red-600 mt-1">{errors.district}</p>
               )}
@@ -268,9 +487,15 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
             {/* Farmer Category */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-2">
-                {t('questionnaire.farmerCategory')} *
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.farmerCategory')} *
+                </label>
+                {renderReadAloudButton(
+                  t('questionnaire.farmerCategoryQuestion'),
+                  t('questionnaire.farmerCategory')
+                )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   { id: 'small_marginal', label: t('questionnaire.smallMarginal') },
@@ -279,48 +504,75 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   { id: 'woman_farmer', label: t('questionnaire.womanFarmer') },
                   { id: 'agricultural_laborer', label: t('questionnaire.agriLaborer') }
                 ].map((cat) => (
-                  <label
-                    key={cat.id}
-                    className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
-                      formData.farmerCategory === cat.id
-                        ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold'
-                        : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                    }`}
-                  >
-                    <input
-                      type="radio"
-                      name="farmerCategory"
-                      value={cat.id}
-                      checked={formData.farmerCategory === cat.id}
-                      onChange={() => updateField('farmerCategory', cat.id)}
-                      className="text-[#238B57] focus:ring-[#238B57]"
-                    />
-                    <span className="text-xs">{cat.label}</span>
-                  </label>
+                  <div key={cat.id} className="flex items-center gap-2">
+                    <label
+                      className={`flex flex-1 items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${
+                        formData.farmerCategory === cat.id
+                          ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold'
+                          : 'border-slate-200 hover:border-slate-300 text-slate-700'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="farmerCategory"
+                        value={cat.id}
+                        checked={formData.farmerCategory === cat.id}
+                        onChange={() => {
+                          updateField('farmerCategory', cat.id);
+                          speakSelection(cat.label);
+                        }}
+                        className="text-[#238B57] focus:ring-[#238B57]"
+                      />
+                      <span className="text-xs">{cat.label}</span>
+                    </label>
+                    {renderReadAloudButton(cat.label, cat.label)}
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Social Category (Affirmative welfare schemes) */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t('questionnaire.socialCategory')} (For Ganga Kalyana & Targeted Subsidies)
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.socialCategory')} (For Ganga Kalyana & Targeted Subsidies)
+                </label>
+                {renderReadAloudButton(
+                  t('questionnaire.socialCategoryQuestion'),
+                  t('questionnaire.socialCategory')
+                )}
+              </div>
               <select
                 value={formData.socialCategory || 'GEN'}
-                onChange={(e) => updateField('socialCategory', e.target.value)}
+                onFocus={() => speakSelection(t('questionnaire.socialCategoryQuestion'))}
+                onChange={(e) => {
+                  updateField('socialCategory', e.target.value);
+                  speakSelection(e.target.selectedOptions[0]?.text || '');
+                }}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-[#238B57] focus:outline-none"
               >
-                <option value="GEN">{t('questionnaire.genCategory')}</option>
-                <option value="SC">{t('questionnaire.scCategory')}</option>
-                <option value="ST">{t('questionnaire.stCategory')}</option>
-                <option value="OBC_CAT_1">{t('questionnaire.obcCat1')}</option>
-                <option value="OBC_2A">{t('questionnaire.obc2A')}</option>
-                <option value="OBC_2B">{t('questionnaire.obc2B')}</option>
-                <option value="OBC_3A">{t('questionnaire.obc3A')}</option>
-                <option value="OBC_3B">{t('questionnaire.obc3B')}</option>
-                <option value="MINORITY">{t('questionnaire.minority')}</option>
+                {socialCategoryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
+              <details className="mt-2">
+                <summary className="cursor-pointer text-[11px] font-medium text-[#238B57]">
+                  {t('questionnaire.listenOptions')}
+                </summary>
+                <div className="mt-2 space-y-1 rounded-lg border border-slate-200 p-2">
+                  {socialCategoryOptions.map((option) => (
+                    <div
+                      key={option.value}
+                      className="flex items-center justify-between gap-2 text-xs text-slate-700"
+                    >
+                      <span>{option.label}</span>
+                      {renderReadAloudButton(option.label, option.label)}
+                    </div>
+                  ))}
+                </div>
+              </details>
             </div>
           </div>
         )}
@@ -335,100 +587,145 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
 
             {/* Land Ownership Toggle */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-2">
-                {t('questionnaire.landOwnership')} *
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.landOwnership')} *
+                </label>
+                {renderReadAloudButton(
+                  t('questionnaire.landOwnershipQuestion'),
+                  t('questionnaire.landOwnership')
+                )}
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => updateField('hasLandOwnership', true)}
-                  className={`p-3.5 rounded-xl border text-left text-xs transition-all cursor-pointer ${
-                    formData.hasLandOwnership
-                      ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold ring-1 ring-[#238B57]'
-                      : 'border-slate-200 text-slate-600 hover:border-slate-300'
-                  }`}
-                >
-                  {t('questionnaire.ownLand')}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => updateField('hasLandOwnership', false)}
-                  className={`p-3.5 rounded-xl border text-left text-xs transition-all cursor-pointer ${
-                    !formData.hasLandOwnership
-                      ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold ring-1 ring-[#238B57]'
-                      : 'border-slate-200 text-slate-600 hover:border-slate-300'
-                  }`}
-                >
-                  {t('questionnaire.noLand')}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateField('hasLandOwnership', true);
+                      speakSelection(t('questionnaire.ownLand'));
+                    }}
+                    className={`flex-1 p-3.5 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                      formData.hasLandOwnership
+                        ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold ring-1 ring-[#238B57]'
+                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    {t('questionnaire.ownLand')}
+                  </button>
+                  {renderReadAloudButton(
+                    t('questionnaire.ownLand'),
+                    t('questionnaire.ownLand')
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      updateField('hasLandOwnership', false);
+                      speakSelection(t('questionnaire.noLand'));
+                    }}
+                    className={`flex-1 p-3.5 rounded-xl border text-left text-xs transition-all cursor-pointer ${
+                      !formData.hasLandOwnership
+                        ? 'border-[#238B57] bg-[#F7F8F3] text-[#173F2B] font-semibold ring-1 ring-[#238B57]'
+                        : 'border-slate-200 text-slate-600 hover:border-slate-300'
+                    }`}
+                  >
+                    {t('questionnaire.noLand')}
+                  </button>
+                  {renderReadAloudButton(
+                    t('questionnaire.noLand'),
+                    t('questionnaire.noLand')
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Landholding in Acres */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t('questionnaire.landAcres')} *
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.landAcres')} *
+                </label>
+                {renderInputQuestionButton(
+                  landAcresQuestion,
+                  landAcresHint,
+                  t('questionnaire.landAcres'),
+                  String(formData.landHoldingAcres ?? '')
+                )}
+              </div>
               <input
                 type="number"
                 step="0.1"
                 min="0"
                 max="100"
                 value={formData.landHoldingAcres ?? ''}
+                onFocus={() => speakSelection(`${landAcresQuestion}. ${landAcresHint}`)}
                 onChange={(e) => updateField('landHoldingAcres', parseFloat(e.target.value) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-[#238B57] focus:outline-none"
-                placeholder="e.g. 2.5"
+                placeholder={t('questionnaire.landAcresPlaceholder')}
               />
               {errors.landHoldingAcres && (
                 <p className="text-xs text-red-600 mt-1">{errors.landHoldingAcres}</p>
               )}
-              <p className="text-[11px] text-slate-500 mt-1">
-                Enter total cultivable acres owned in Karnataka. Up to 5 acres qualifies for Small & Marginal benefits.
-              </p>
+              <p className="text-[11px] text-slate-500 mt-1">{t('questionnaire.landAcresHint')}</p>
             </div>
 
             {/* Annual Income */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t('questionnaire.annualIncome')} *
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.annualIncome')} *
+                </label>
+                {renderInputQuestionButton(
+                  annualIncomeQuestion,
+                  annualIncomeHint,
+                  t('questionnaire.annualIncome'),
+                  String(formData.annualIncome ?? '')
+                )}
+              </div>
               <input
                 type="number"
                 step="5000"
                 min="0"
                 value={formData.annualIncome ?? ''}
+                onFocus={() => speakSelection(`${annualIncomeQuestion}. ${annualIncomeHint}`)}
                 onChange={(e) => updateField('annualIncome', parseInt(e.target.value, 10) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-[#238B57] focus:outline-none"
-                placeholder="e.g. 120000"
+                placeholder={t('questionnaire.annualIncomePlaceholder')}
               />
               {errors.annualIncome && (
                 <p className="text-xs text-red-600 mt-1">{errors.annualIncome}</p>
               )}
-              <p className="text-[11px] text-slate-500 mt-1">
-                Used to verify income ceilings for affirmative schemes (e.g. Ganga Kalyana limit is ₹2,00,000).
-              </p>
+              <p className="text-[11px] text-slate-500 mt-1">{t('questionnaire.annualIncomeHint')}</p>
             </div>
 
             {/* Age */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">
-                {t('questionnaire.farmerAge')} *
-              </label>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">
+                  {t('questionnaire.farmerAge')} *
+                </label>
+                {renderInputQuestionButton(
+                  farmerAgeQuestion,
+                  farmerAgeHint,
+                  t('questionnaire.farmerAge'),
+                  String(formData.age ?? '')
+                )}
+              </div>
               <input
                 type="number"
                 min="18"
                 max="100"
                 value={formData.age ?? ''}
+                onFocus={() => speakSelection(`${farmerAgeQuestion}. ${farmerAgeHint}`)}
                 onChange={(e) => updateField('age', parseInt(e.target.value, 10) || 0)}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-[#238B57] focus:outline-none"
-                placeholder="e.g. 42"
+                placeholder={t('questionnaire.farmerAgePlaceholder')}
               />
               {errors.age && (
                 <p className="text-xs text-red-600 mt-1">{errors.age}</p>
               )}
-              <p className="text-[11px] text-slate-500 mt-1">
-                Required for accidental relief schemes (Raitha Sanjeevini requires 18 to 65 years).
-              </p>
+              <p className="text-[11px] text-slate-500 mt-1">{t('questionnaire.farmerAgeHint')}</p>
             </div>
           </div>
         )}
@@ -450,12 +747,25 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   </span>
                   <p className="text-[11px] text-slate-500">{t('questionnaire.waterSourceDesc')}</p>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={Boolean(formData.hasWaterSource)}
-                  onChange={(e) => updateField('hasWaterSource', e.target.checked)}
-                  className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                />
+                <div className="flex items-center gap-2">
+                  {renderReadAloudButton(
+                    `${t('questionnaire.waterSource')}. ${t('questionnaire.waterSourceDesc')}`,
+                    t('questionnaire.waterSource')
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={Boolean(formData.hasWaterSource)}
+                    onChange={(e) => {
+                      updateField('hasWaterSource', e.target.checked);
+                      speakBooleanSelection(
+                        t('questionnaire.waterSource'),
+                        t('questionnaire.waterSourceDesc'),
+                        e.target.checked
+                      );
+                    }}
+                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
 
@@ -466,16 +776,27 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   <span className="text-xs font-semibold text-[#173F2B]">
                     {t('questionnaire.existingBorewell')}
                   </span>
-                  <p className="text-[11px] text-slate-500">
-                    Ganga Kalyana grants free borewells only to plots without an active energized borewell.
-                  </p>
+                  <p className="text-[11px] text-slate-500">{t('questionnaire.existingBorewellDesc')}</p>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={Boolean(formData.hasExistingBorewell)}
-                  onChange={(e) => updateField('hasExistingBorewell', e.target.checked)}
-                  className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                />
+                <div className="flex items-center gap-2">
+                  {renderReadAloudButton(
+                    `${t('questionnaire.existingBorewell')}. ${t('questionnaire.existingBorewellDesc')}`,
+                    t('questionnaire.existingBorewell')
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={Boolean(formData.hasExistingBorewell)}
+                    onChange={(e) => {
+                      updateField('hasExistingBorewell', e.target.checked);
+                      speakBooleanSelection(
+                        t('questionnaire.existingBorewell'),
+                        t('questionnaire.existingBorewellDesc'),
+                        e.target.checked
+                      );
+                    }}
+                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
 
@@ -486,16 +807,27 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   <span className="text-xs font-semibold text-[#173F2B]">
                     {t('questionnaire.cooperativeMember')}
                   </span>
-                  <p className="text-[11px] text-slate-500">
-                    Required for cashless hospitalization under Yashaswini Health Scheme.
-                  </p>
+                  <p className="text-[11px] text-slate-500">{t('questionnaire.cooperativeMemberDesc')}</p>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={Boolean(formData.isCooperativeMember)}
-                  onChange={(e) => updateField('isCooperativeMember', e.target.checked)}
-                  className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                />
+                <div className="flex items-center gap-2">
+                  {renderReadAloudButton(
+                    `${t('questionnaire.cooperativeMember')}. ${t('questionnaire.cooperativeMemberDesc')}`,
+                    t('questionnaire.cooperativeMember')
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={Boolean(formData.isCooperativeMember)}
+                    onChange={(e) => {
+                      updateField('isCooperativeMember', e.target.checked);
+                      speakBooleanSelection(
+                        t('questionnaire.cooperativeMember'),
+                        t('questionnaire.cooperativeMemberDesc'),
+                        e.target.checked
+                      );
+                    }}
+                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
 
@@ -506,16 +838,27 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   <span className="text-xs font-semibold text-[#173F2B]">
                     {t('questionnaire.higherEduChildren')}
                   </span>
-                  <p className="text-[11px] text-slate-500">
-                    Required for Chief Minister’s Raitha Vidya Nidhi education scholarship.
-                  </p>
+                  <p className="text-[11px] text-slate-500">{t('questionnaire.higherEduChildrenDesc')}</p>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={Boolean(formData.hasChildrenInHigherEducation)}
-                  onChange={(e) => updateField('hasChildrenInHigherEducation', e.target.checked)}
-                  className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                />
+                <div className="flex items-center gap-2">
+                  {renderReadAloudButton(
+                    `${t('questionnaire.higherEduChildren')}. ${t('questionnaire.higherEduChildrenDesc')}`,
+                    t('questionnaire.higherEduChildren')
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={Boolean(formData.hasChildrenInHigherEducation)}
+                    onChange={(e) => {
+                      updateField('hasChildrenInHigherEducation', e.target.checked);
+                      speakBooleanSelection(
+                        t('questionnaire.higherEduChildren'),
+                        t('questionnaire.higherEduChildrenDesc'),
+                        e.target.checked
+                      );
+                    }}
+                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
 
@@ -526,16 +869,27 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                   <span className="text-xs font-semibold text-[#173F2B]">
                     {t('questionnaire.notifiedCropHobli')}
                   </span>
-                  <p className="text-[11px] text-slate-500">
-                    PMFBY Samrakshane applies to notified crops (Paddy, Ragi, Maize, Groundnut, Cotton, etc.).
-                  </p>
+                  <p className="text-[11px] text-slate-500">{t('questionnaire.notifiedCropHobliDesc')}</p>
                 </div>
-                <input
-                  type="checkbox"
-                  checked={Boolean(formData.notifiedCropInHobli)}
-                  onChange={(e) => updateField('notifiedCropInHobli', e.target.checked)}
-                  className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                />
+                <div className="flex items-center gap-2">
+                  {renderReadAloudButton(
+                    `${t('questionnaire.notifiedCropHobli')}. ${t('questionnaire.notifiedCropHobliDesc')}`,
+                    t('questionnaire.notifiedCropHobli')
+                  )}
+                  <input
+                    type="checkbox"
+                    checked={Boolean(formData.notifiedCropInHobli)}
+                    onChange={(e) => {
+                      updateField('notifiedCropInHobli', e.target.checked);
+                      speakBooleanSelection(
+                        t('questionnaire.notifiedCropHobli'),
+                        t('questionnaire.notifiedCropHobliDesc'),
+                        e.target.checked
+                      );
+                    }}
+                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -556,23 +910,29 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
               </h3>
 
               {[
-                { field: 'hasFruitsId', label: t('questionnaire.fruitsId'), desc: 'Karnataka FRUITS Portal (FID)' },
-                { field: 'hasRtcOrPahani', label: t('questionnaire.rtcRecord'), desc: 'Karnataka Bhoomi RTC in owner name' },
-                { field: 'hasAadhaarBankLinked', label: t('questionnaire.aadhaarNpci'), desc: 'Mandatory for PM-KISAN & Raitha Siri DBT' },
-                { field: 'hasCasteIncomeCertificate', label: t('questionnaire.casteIncomeCert'), desc: 'Nadakacheri RD-numbered certificate' },
-                { field: 'hasSowingCertificate', label: t('questionnaire.sowingCert'), desc: 'Karnataka Bele Sameekshe Mobile App' }
+                { field: 'hasFruitsId', label: t('questionnaire.fruitsId'), desc: t('questionnaire.fruitsIdDesc') },
+                { field: 'hasRtcOrPahani', label: t('questionnaire.rtcRecord'), desc: t('questionnaire.rtcRecordDesc') },
+                { field: 'hasAadhaarBankLinked', label: t('questionnaire.aadhaarNpci'), desc: t('questionnaire.aadhaarNpciDesc') },
+                { field: 'hasCasteIncomeCertificate', label: t('questionnaire.casteIncomeCert'), desc: t('questionnaire.casteIncomeCertDesc') },
+                { field: 'hasSowingCertificate', label: t('questionnaire.sowingCert'), desc: t('questionnaire.sowingCertDesc') }
               ].map((item) => (
                 <div key={item.field} className="p-3.5 rounded-xl border border-slate-200 flex items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold text-slate-800">{item.label}</span>
                     <p className="text-[11px] text-slate-500">{item.desc}</p>
                   </div>
-                  <input
-                    type="checkbox"
-                    checked={Boolean((formData as any)[item.field])}
-                    onChange={(e) => updateField(item.field as any, e.target.checked)}
-                    className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
-                  />
+                  <div className="flex items-center gap-2">
+                    {renderReadAloudButton(`${item.label}. ${item.desc}`, item.label)}
+                    <input
+                      type="checkbox"
+                      checked={Boolean((formData as any)[item.field])}
+                      onChange={(e) => {
+                        updateField(item.field as any, e.target.checked);
+                        speakBooleanSelection(item.label, item.desc, e.target.checked);
+                      }}
+                      className="w-5 h-5 text-[#238B57] rounded cursor-pointer"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -587,23 +947,29 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
               </p>
 
               {[
-                { field: 'isIncomeTaxPayee', label: t('questionnaire.incomeTax'), desc: 'Disqualifies from PM-KISAN / Raitha Siri' },
-                { field: 'isGovernmentEmployee', label: t('questionnaire.govtEmployee'), desc: 'Regular govt/PSU staff are excluded' },
-                { field: 'isConstitutionalPostHolder', label: t('questionnaire.constitutionalPost'), desc: 'Ministers, MPs, MLAs, MLCs, Mayors' },
-                { field: 'isInstitutionalLandholder', label: t('questionnaire.institutionalLand'), desc: 'Trust, temple, or company land' },
-                { field: 'isEnrolledInEsiOrCghs', label: t('questionnaire.esiCghs'), desc: 'Excludes from Yashaswini Co-op Health Scheme' }
+                { field: 'isIncomeTaxPayee', label: t('questionnaire.incomeTax'), desc: t('questionnaire.incomeTaxDesc') },
+                { field: 'isGovernmentEmployee', label: t('questionnaire.govtEmployee'), desc: t('questionnaire.govtEmployeeDesc') },
+                { field: 'isConstitutionalPostHolder', label: t('questionnaire.constitutionalPost'), desc: t('questionnaire.constitutionalPostDesc') },
+                { field: 'isInstitutionalLandholder', label: t('questionnaire.institutionalLand'), desc: t('questionnaire.institutionalLandDesc') },
+                { field: 'isEnrolledInEsiOrCghs', label: t('questionnaire.esiCghs'), desc: t('questionnaire.esiCghsDesc') }
               ].map((item) => (
                 <div key={item.field} className="p-3.5 rounded-xl border border-red-100 bg-red-50/40 flex items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold text-red-900">{item.label}</span>
                     <p className="text-[11px] text-red-700/80">{item.desc}</p>
                   </div>
-                  <input
-                    type="checkbox"
-                    checked={Boolean((formData as any)[item.field])}
-                    onChange={(e) => updateField(item.field as any, e.target.checked)}
-                    className="w-5 h-5 text-red-600 rounded cursor-pointer"
-                  />
+                  <div className="flex items-center gap-2">
+                    {renderReadAloudButton(`${item.label}. ${item.desc}`, item.label)}
+                    <input
+                      type="checkbox"
+                      checked={Boolean((formData as any)[item.field])}
+                      onChange={(e) => {
+                        updateField(item.field as any, e.target.checked);
+                        speakBooleanSelection(item.label, item.desc, e.target.checked);
+                      }}
+                      className="w-5 h-5 text-red-600 rounded cursor-pointer"
+                    />
+                  </div>
                 </div>
               ))}
             </div>

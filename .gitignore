@@ -1,4 +1,8 @@
 node_modules/
+.venv-tts/
+.tts-models/
+__pycache__/
+*.py[cod]
 build/
 dist/
 coverage/
