@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useRef } from 'react';
 import { MotionConfig } from 'motion/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './lib/queryClient';
@@ -105,6 +105,74 @@ export default function App() {
   const [verificationTokenParam, setVerificationTokenParam] = useState<string>('');
   const [isOfflineEvaluation, setIsOfflineEvaluation] = useState(false);
   const [isEvaluating, setIsEvaluating] = useState(false);
+  const clickAudioContextRef = useRef<AudioContext | null>(null);
+  const hasWarnedClickAudioRef = useRef(false);
+
+  useEffect(() => {
+    const reportUnavailable = (error: unknown) => {
+      if (hasWarnedClickAudioRef.current) return;
+      hasWarnedClickAudioRef.current = true;
+      console.warn('Button click sound is unavailable:', error);
+    };
+
+    const playClickSound = () => {
+      const AudioContextConstructor = window.AudioContext;
+      if (!AudioContextConstructor) {
+        reportUnavailable(new Error('Web Audio API is not supported.'));
+        return;
+      }
+
+      try {
+        let context = clickAudioContextRef.current;
+        if (!context || context.state === 'closed') {
+          context = new AudioContextConstructor();
+          clickAudioContextRef.current = context;
+        }
+
+        const playTone = () => {
+          const now = context.currentTime;
+          const oscillator = context.createOscillator();
+          const gain = context.createGain();
+          oscillator.type = 'triangle';
+          oscillator.frequency.setValueAtTime(720, now);
+          oscillator.frequency.exponentialRampToValueAtTime(480, now + 0.04);
+          gain.gain.setValueAtTime(0.025, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+          oscillator.connect(gain);
+          gain.connect(context.destination);
+          oscillator.start(now);
+          oscillator.stop(now + 0.04);
+        };
+
+        if (context.state === 'running') {
+          playTone();
+        } else {
+          void context.resume().then(playTone).catch(reportUnavailable);
+        }
+      } catch (error) {
+        reportUnavailable(error);
+      }
+    };
+
+    const handleButtonClick = (event: MouseEvent) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest('button:not(:disabled)')
+      ) {
+        playClickSound();
+      }
+    };
+
+    document.addEventListener('click', handleButtonClick, true);
+    return () => {
+      document.removeEventListener('click', handleButtonClick, true);
+      const context = clickAudioContextRef.current;
+      clickAudioContextRef.current = null;
+      if (context && context.state !== 'closed') {
+        void context.close().catch(reportUnavailable);
+      }
+    };
+  }, []);
 
   // Check URL params on initial load (e.g. ?view=dashboard or ?view=verify-email&token=xyz)
   useEffect(() => {
