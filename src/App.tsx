@@ -131,17 +131,28 @@ export default function App() {
 
         const playTone = () => {
           const now = context.currentTime;
-          const oscillator = context.createOscillator();
+          const sampleCount = Math.max(1, Math.floor(context.sampleRate * 0.025));
+          const buffer = context.createBuffer(1, sampleCount, context.sampleRate);
+          const samples = buffer.getChannelData(0);
+          for (let index = 0; index < samples.length; index += 1) {
+            const fade = 1 - index / samples.length;
+            samples[index] = (Math.random() * 2 - 1) * fade * fade;
+          }
+
+          const source = context.createBufferSource();
+          const filter = context.createBiquadFilter();
           const gain = context.createGain();
-          oscillator.type = 'triangle';
-          oscillator.frequency.setValueAtTime(720, now);
-          oscillator.frequency.exponentialRampToValueAtTime(480, now + 0.04);
-          gain.gain.setValueAtTime(0.025, now);
-          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
-          oscillator.connect(gain);
+          source.buffer = buffer;
+          filter.type = 'lowpass';
+          filter.frequency.setValueAtTime(2600, now);
+          filter.frequency.exponentialRampToValueAtTime(850, now + 0.025);
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+          source.connect(filter);
+          filter.connect(gain);
           gain.connect(context.destination);
-          oscillator.start(now);
-          oscillator.stop(now + 0.04);
+          source.start(now);
+          source.stop(now + 0.025);
         };
 
         if (context.state === 'running') {
