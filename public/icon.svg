@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#173F2B"/>
+  <circle cx="256" cy="256" r="180" fill="#238B57" fill-opacity="0.3"/>
+  <!-- Sprout / Wheat stalk icon -->
+  <path d="M256 380V180" stroke="#B9E769" stroke-width="24" stroke-linecap="round"/>
+  <path d="M256 260C220 250 170 210 170 150C220 150 250 200 256 230" fill="#B9E769" fill-opacity="0.9" stroke="#B9E769" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 220C292 210 342 170 342 110C292 110 262 160 256 190" fill="#FFFFFF" fill-opacity="0.9" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Base Soil Arc -->
+  <path d="M160 380C190 365 322 365 352 380" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+</svg>

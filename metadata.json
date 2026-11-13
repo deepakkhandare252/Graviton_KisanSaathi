@@ -1,0 +1,6 @@
+{
+  "name": "Kisan Scheme Saathi",
+  "description": "Explainable, farmer-centric government scheme eligibility and application-readiness assistant for Karnataka, India. From Scheme Confusion to Application Readiness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

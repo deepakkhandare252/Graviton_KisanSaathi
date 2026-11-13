@@ -1,0 +1,249 @@
+{
+  "users": [
+    {
+      "id": "user_seed_karnataka",
+      "email": "raitha.bandhu@karnataka.gov.in",
+      "fullName": "Basavaraj Patil",
+      "preferredLanguage": "kn",
+      "district": "Dharwad",
+      "phoneNumber": "+919845012345",
+      "emailVerified": true,
+      "createdAt": "2026-11-13T07:22:39.585Z",
+      "updatedAt": "2026-11-13T07:22:39.585Z",
+      "passwordHash": "67081d751b45ea1f26074c8da1c8aadfeb99ae654833894cca14ff26c5f9abe0607525255db0d7e400e1a27340b46866af84eefbcac6eaa7478d22ff2fbacb00",
+      "salt": "8be693e641b80921d87ebac72a702a00",
+      "username": "basavaraj_patil",
+      "phoneVerified": true,
+      "accountStatus": "ACTIVE",
+      "timezone": "Asia/Kolkata",
+      "smsRemindersEnabled": false
+    },
+    {
+      "id": "usr_fabe474d-fc4",
+      "email": "deepak.test.1794558190@example.com",
+      "fullName": "Deepak Khandare",
+      "preferredLanguage": "en",
+      "district": "Dharwad",
+      "phoneNumber": "+919000000001",
+      "emailVerified": true,
+      "createdAt": "2026-11-13T08:23:13.994Z",
+      "updatedAt": "2026-11-13T08:23:23.437Z",
+      "passwordHash": "7de7e29f75a7f7fcc7217c16ab2b76fcddafe1b27f084ac1263f5a339070e108f8bf35f5310bb281b3c7083e2f92ba4918cb358ed3a85c83bda5be21925923dc",
+      "salt": "d1b01570bdd765f44b69e930d8ba25df",
+      "username": "farmer_4d-fc4",
+      "phoneVerified": true,
+      "accountStatus": "ACTIVE",
+      "timezone": "Asia/Kolkata",
+      "smsRemindersEnabled": false
+    }
+  ],
+  "otpVerifications": [],
+  "savedSchemes": [
+    {
+      "id": "saved_1",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pm-kisan-raitha-siri",
+      "savedAt": "2026-11-10T07:22:39.585Z",
+      "schemeNameSnapshot": "PM-KISAN Samman Nidhi & Karnataka Raitha Siri",
+      "applicationDeadline": null,
+      "deadlineVerified": false,
+      "reminderEnabled": false,
+      "reminderDaysBefore": [
+        30,
+        7,
+        3,
+        1
+      ]
+    },
+    {
+      "id": "saved_2",
+      "userId": "user_seed_karnataka",
+      "schemeId": "ganga-kalyana",
+      "savedAt": "2026-11-11T07:22:39.585Z",
+      "schemeNameSnapshot": "Ganga Kalyana Scheme (Individual & Community Borewells)",
+      "applicationDeadline": "2026-11-16",
+      "deadlineVerified": true,
+      "reminderEnabled": true,
+      "reminderDaysBefore": [
+        30,
+        7,
+        3,
+        1
+      ],
+      "lastReminderSentAt": "2026-11-13T11:38:06.059Z"
+    },
+    {
+      "id": "saved_mig_raitha-vidya-nidhi",
+      "userId": "user_seed_karnataka",
+      "schemeId": "raitha-vidya-nidhi",
+      "schemeNameSnapshot": "Chief Minister's Raitha Vidya Nidhi Scholarship",
+      "savedAt": "2026-11-13T11:38:06.027Z",
+      "applicationDeadline": "2026-11-22",
+      "deadlineVerified": true,
+      "reminderEnabled": true,
+      "reminderDaysBefore": [
+        30,
+        7,
+        3,
+        1
+      ],
+      "lastReminderSentAt": "2026-11-13T11:38:06.060Z"
+    },
+    {
+      "id": "saved_mig_pmfby-samrakshane",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pmfby-samrakshane",
+      "schemeNameSnapshot": "Pradhan Mantri Fasal Bima Yojana (Samrakshane)",
+      "savedAt": "2026-11-13T11:38:06.031Z",
+      "applicationDeadline": "2026-11-30",
+      "deadlineVerified": true,
+      "reminderEnabled": true,
+      "reminderDaysBefore": [
+        30,
+        7,
+        3,
+        1
+      ],
+      "lastReminderSentAt": "2026-11-13T11:38:06.060Z"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app_seed_1",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pm-kisan-raitha-siri",
+      "status": "READY_TO_APPLY",
+      "applicationDate": "2026-11-12T07:22:39.585Z",
+      "appliedThroughPortal": "FRUITS Karnataka (fruits.karnataka.gov.in)",
+      "acknowledgementNumber": "FRUITS-DHW-2026-89102",
+      "notes": "Pahani (RTC) and Aadhaar seeded bank account verified at Raitha Samparka Kendra.",
+      "createdAt": "2026-11-08T07:22:39.585Z",
+      "updatedAt": "2026-11-12T07:22:39.585Z",
+      "timeline": [
+        {
+          "id": "time_1",
+          "applicationId": "app_seed_1",
+          "status": "INTERESTED",
+          "note": "Discovered scheme eligibility via Kisan Scheme Saathi questionnaire.",
+          "timestamp": "2026-11-08T07:22:39.585Z"
+        },
+        {
+          "id": "time_2",
+          "applicationId": "app_seed_1",
+          "status": "PREPARING",
+          "note": "Collected RTC/Pahani from Bhoomi portal and Aadhaar copy.",
+          "timestamp": "2026-11-10T07:22:39.585Z"
+        },
+        {
+          "id": "time_3",
+          "applicationId": "app_seed_1",
+          "status": "READY_TO_APPLY",
+          "note": "All 4 essential documents verified. Ready for portal submission.",
+          "timestamp": "2026-11-12T07:22:39.585Z"
+        }
+      ],
+      "schemeNameSnapshot": "PM-KISAN Samman Nidhi & Karnataka Raitha Siri"
+    },
+    {
+      "id": "app_e423f2ca-428",
+      "userId": "usr_fabe474d-fc4",
+      "schemeId": "pm-kisan-raitha-siri",
+      "status": "PREPARING",
+      "applicationDate": "2026-11-13T08:23:48.368Z",
+      "appliedThroughPortal": "FRUITS Karnataka (fruits.karnataka.gov.in)",
+      "acknowledgementNumber": "FRUITS-2026-99421",
+      "notes": "RTC and Aadhaar verified at Hobli RSK.",
+      "createdAt": "2026-11-13T08:23:48.368Z",
+      "updatedAt": "2026-11-13T08:23:48.368Z",
+      "timeline": [
+        {
+          "id": "time_7caddf91",
+          "applicationId": "app_e423f2ca-428",
+          "status": "PREPARING",
+          "note": "RTC and Aadhaar verified at Hobli RSK.",
+          "timestamp": "2026-11-13T08:23:48.368Z"
+        }
+      ],
+      "schemeNameSnapshot": "PM-KISAN Samman Nidhi & Karnataka Raitha Siri"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "ntf_5283e77c-e34",
+      "userId": "user_seed_karnataka",
+      "schemeId": "ganga-kalyana",
+      "schemeNameSnapshot": "Ganga Kalyana Scheme (Individual & Community Borewells)",
+      "titleEn": "Urgent Deadline: Ganga Kalyana Scheme (Individual & Community Borewells)",
+      "titleKn": "ತುರ್ತು ಕೊನೆಯ ದಿನಾಂಕ: ಗಂಗಾ ಕಲ್ಯಾಣ ಯೋಜನೆ (ವೈಯಕ್ತಿಕ ಹಾಗೂ ಸಮುದಾಯ ಬೋರ್‌ವೆಲ್)",
+      "messageEn": "Application deadline is 2026-11-16 (3 day(s) remaining). Open your readiness checklist to prepare documents.",
+      "messageKn": "ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಕೊನೆಯ ದಿನಾಂಕ 2026-11-16 (3 ದಿನ ಬಾಕಿ ಇದೆ). ದಾಖಲೆಗಳ ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ಸಿದ್ಧಪಡಿಸಿ.",
+      "type": "DEADLINE_REMINDER",
+      "urgency": "URGENT",
+      "thresholdDays": 3,
+      "isRead": false,
+      "createdAt": "2026-11-13T11:38:06.059Z",
+      "readAt": null
+    },
+    {
+      "id": "ntf_e414c103-671",
+      "userId": "user_seed_karnataka",
+      "schemeId": "raitha-vidya-nidhi",
+      "schemeNameSnapshot": "Chief Minister's Raitha Vidya Nidhi Scholarship",
+      "titleEn": "Upcoming Deadline (9 days left): Chief Minister's Raitha Vidya Nidhi Scholarship",
+      "titleKn": "ಸಮೀಪಿಸುತ್ತಿರುವ ಕೊನೆಯ ದಿನಾಂಕ (9 ದಿನ ಬಾಕಿ): ಮುಖ್ಯಮಂತ್ರಿಗಳ ರೈತ ವಿದ್ಯಾನಿಧಿ ವಿದ್ಯಾರ್ಥಿವೇತನ",
+      "messageEn": "Application deadline is 2026-11-22 (9 day(s) remaining). Open your readiness checklist to prepare documents.",
+      "messageKn": "ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಕೊನೆಯ ದಿನಾಂಕ 2026-11-22 (9 ದಿನ ಬಾಕಿ ಇದೆ). ದಾಖಲೆಗಳ ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ಸಿದ್ಧಪಡಿಸಿ.",
+      "type": "DEADLINE_REMINDER",
+      "urgency": "APPROACHING",
+      "thresholdDays": 30,
+      "isRead": false,
+      "createdAt": "2026-11-13T11:38:06.060Z",
+      "readAt": null
+    },
+    {
+      "id": "ntf_0b2cc236-75d",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pmfby-samrakshane",
+      "schemeNameSnapshot": "Pradhan Mantri Fasal Bima Yojana (Samrakshane)",
+      "titleEn": "Upcoming Deadline (17 days left): Pradhan Mantri Fasal Bima Yojana (Samrakshane)",
+      "titleKn": "ಸಮೀಪಿಸುತ್ತಿರುವ ಕೊನೆಯ ದಿನಾಂಕ (17 ದಿನ ಬಾಕಿ): ಪ್ರಧಾನ ಮಂತ್ರಿ ಫಸಲ್ ಬಿಮಾ ಯೋಜನೆ (ಕರ್ನಾಟಕ ಸಂರಕ್ಷಣೆ)",
+      "messageEn": "Application deadline is 2026-11-30 (17 day(s) remaining). Open your readiness checklist to prepare documents.",
+      "messageKn": "ಅರ್ಜಿ ಸಲ್ಲಿಕೆ ಕೊನೆಯ ದಿನಾಂಕ 2026-11-30 (17 ದಿನ ಬಾಕಿ ಇದೆ). ದಾಖಲೆಗಳ ಪರಿಶೀಲನಾ ಪಟ್ಟಿಯನ್ನು ಸಿದ್ಧಪಡಿಸಿ.",
+      "type": "DEADLINE_REMINDER",
+      "urgency": "FAR",
+      "thresholdDays": 30,
+      "isRead": false,
+      "createdAt": "2026-11-13T11:38:06.060Z",
+      "readAt": null
+    }
+  ],
+  "reminderDispatchLogs": [
+    {
+      "id": "rlog_8d7f6f7c-29b",
+      "userId": "user_seed_karnataka",
+      "schemeId": "ganga-kalyana",
+      "deadlineDate": "2026-11-16",
+      "thresholdDays": 3,
+      "channel": "IN_APP",
+      "sentAt": "2026-11-13T11:38:06.059Z"
+    },
+    {
+      "id": "rlog_e6be3804-b2e",
+      "userId": "user_seed_karnataka",
+      "schemeId": "raitha-vidya-nidhi",
+      "deadlineDate": "2026-11-22",
+      "thresholdDays": 30,
+      "channel": "IN_APP",
+      "sentAt": "2026-11-13T11:38:06.060Z"
+    },
+    {
+      "id": "rlog_ebbf2e30-30d",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pmfby-samrakshane",
+      "deadlineDate": "2026-11-30",
+      "thresholdDays": 30,
+      "channel": "IN_APP",
+      "sentAt": "2026-11-13T11:38:06.060Z"
+    }
+  ]
+}
