@@ -149,7 +149,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     <div className="space-y-16 sm:space-y-24">
       
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-20 bg-gradient-to-b from-[#F7F8F3] to-[#FFFFFF] border-b border-slate-200/70">
+      <section className="landing-hero relative overflow-hidden pt-8 sm:pt-14 pb-12 sm:pb-20 border-b border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -174,19 +174,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </p>
 
               {/* Primary & Secondary CTAs */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
                 <button
                   onClick={() => onNavigate('questionnaire')}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold rounded-xl bg-[#173F2B] text-white hover:bg-[#238B57] transition-all shadow-md hover:shadow-lg cursor-pointer"
+                  className="button-primary inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold rounded-xl bg-[#173F2B] text-white hover:bg-[#238B57] transition-all shadow-md hover:shadow-lg cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4 text-[#B9E769]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#B9E769]" />
                   <span>{t('hero.primaryCta')}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
 
                 <button
                   onClick={() => onNavigate('schemes')}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold rounded-xl border border-slate-300 bg-white text-[#173F2B] hover:bg-slate-50 transition-colors shadow-xs cursor-pointer"
+                  className="button-secondary inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold rounded-xl border border-slate-300 bg-white text-[#173F2B] hover:bg-slate-50 transition-colors shadow-xs cursor-pointer"
                 >
                   <Compass className="w-4 h-4 text-[#238B57]" />
                   <span>{t('hero.secondaryCta')}</span>

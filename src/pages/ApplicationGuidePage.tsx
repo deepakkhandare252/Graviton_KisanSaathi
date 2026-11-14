@@ -8,10 +8,12 @@ import {
   Building2,
   FileText,
   ShieldCheck,
-  Database
+  Database,
+  Volume2
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useSchemesCatalog, useSchemeApplicationGuide } from '../hooks/useSchemeQueries';
+import { useReadAloud } from '../hooks/useReadAloud';
 
 interface ApplicationGuidePageProps {
   initialSchemeId?: string;
@@ -23,6 +25,7 @@ export const ApplicationGuidePage: React.FC<ApplicationGuidePageProps> = ({
   onNavigateToChecklist
 }) => {
   const { t, language } = useLanguage();
+  const { speakText } = useReadAloud();
   const { schemes, isLoading: catalogLoading, isOfflineData } = useSchemesCatalog();
 
   const [selectedSchemeId, setSelectedSchemeId] = useState<string>(() => {
@@ -61,6 +64,34 @@ export const ApplicationGuidePage: React.FC<ApplicationGuidePageProps> = ({
   const officialPortalUrl = guide?.officialPortalUrl ?? scheme.officialPortalUrl;
   const informationUrl = guide?.informationUrl ?? scheme.informationUrl;
   const helplinePhone = guide?.helplinePhone ?? scheme.helplinePhone;
+  const isKannada = language === 'kn';
+  const schemeName = isKannada ? scheme.nameKn : scheme.nameEn;
+  const noticeText = isKannada
+    ? 'ಸೂಚನೆ: ಈ ಅರ್ಜಿ ಸಹಾಯಕವು ನಿಮ್ಮ ದಾಖಲೆಗಳನ್ನು ಸಿದ್ಧಪಡಿಸಿ ನಿಯಮಗಳನ್ನು ಆಫ್‌ಲೈನ್ ಮತ್ತು ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಪರಿಶೀಲಿಸುತ್ತದೆ. ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಅರ್ಜಿ ಸಲ್ಲಿಸಲು ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಬೇಕು ಅಥವಾ ಗ್ರಾಮ ಒನ್ / ರೈತ ಸಂಪರ್ಕ ಕೇಂದ್ರಕ್ಕೆ ಭೇಟಿ ನೀಡಬೇಕು.'
+    : 'Notice: This application assistant prepares your documents and validates rules offline and online. Opening the external government portal and submitting an official application requires active internet connectivity or visiting a Grama One / Raitha Samparka Kendra counter.';
+  const rejectionTips = isKannada
+    ? [
+        'ಡಿಬಿಟಿಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸುವ ಮೊದಲು ನಿಮ್ಮ ಬ್ಯಾಂಕ್ ಶಾಖೆಯಲ್ಲಿ ಆಧಾರ್ ಅನ್ನು ಎನ್‌ಪಿಸಿಐ ಮ್ಯಾಪರ್‌ಗೆ ಲಿಂಕ್ ಮಾಡಿ.',
+        'ಭೂಮಿ ಆರ್‌ಟಿಸಿಯಲ್ಲಿನ ನಿಮ್ಮ ಸರ್ವೇ ಸಂಖ್ಯೆಗಳು ಫ್ರೂಟ್ಸ್ ಐಡಿ ಪ್ರೊಫೈಲ್‌ಗೆ ಹೊಂದಿಕೆಯಾಗುತ್ತವೆ ಎಂದು ಪರಿಶೀಲಿಸಿ.',
+        'ಬೆಳೆ ವಿಮೆ ಕ್ಲೇಮ್‌ಗಳ ಕೊನೆಯ ದಿನಾಂಕದ ಮೊದಲು ಬೆಳೆ ಸಮೀಕ್ಷೆಯನ್ನು ಪೂರ್ಣಗೊಳಿಸಿ.'
+      ]
+    : [
+        'Always link your Aadhaar with the NPCI mapper at your bank branch before applying for DBT.',
+        'Check that your survey numbers in Bhoomi RTC match your FRUITS ID profile.',
+        'Complete Bele Sameekshe crop survey before cut-off dates for crop insurance claims.'
+      ];
+  const fullProcedureText = [
+    `${schemeName}.`,
+    ...steps.map((step, index) => `${isKannada ? 'ಹಂತ' : 'Step'} ${index + 1}. ${step}`),
+    `${isKannada ? 'ಸಹಾಯ ಕೇಂದ್ರಗಳು' : 'Assistance centres'}. ${centres.join('. ')}`,
+    helplinePhone
+      ? `${isKannada ? 'ಸಹಾಯವಾಣಿ' : 'Helpline'}: ${helplinePhone}`
+      : '',
+    noticeText,
+    `${isKannada ? 'ಪೋರ್ಟಲ್‌ನಲ್ಲಿ ಅರ್ಜಿ ತಿರಸ್ಕಾರ ತಪ್ಪಿಸಲು' : 'To avoid portal rejections'}. ${rejectionTips.join(' ')}`
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
@@ -163,10 +194,26 @@ export const ApplicationGuidePage: React.FC<ApplicationGuidePageProps> = ({
       {/* Step by step application walkthrough */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
         <div className="md:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6">
-          <h3 className="text-base font-bold text-[#173F2B] flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-[#238B57]" />
-            <span>{language === 'kn' ? 'ಹಂತ-ಹಂತದ ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆ' : 'Step-by-Step Application Process'}</span>
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <h3 className="text-base font-bold text-[#173F2B] flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-[#238B57]" />
+              <span>{isKannada ? 'ಹಂತ-ಹಂತದ ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆ' : 'Step-by-Step Application Process'}</span>
+            </h3>
+            <button
+              type="button"
+              onClick={() => speakText(fullProcedureText)}
+              className="read-aloud-button inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition-colors"
+              aria-label={isKannada ? 'ಪೂರ್ಣ ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆ ಕೇಳಿ' : 'Listen to the full application process'}
+            >
+              <Volume2 className="h-4 w-4" aria-hidden="true" />
+              <span>{isKannada ? 'ಪೂರ್ಣ ಪ್ರಕ್ರಿಯೆ ಕೇಳಿ' : 'Listen to full process'}</span>
+            </button>
+          </div>
+          <p className="text-xs text-slate-500">
+            {isKannada
+              ? 'ಪ್ರತಿ ಹಂತವನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಅಥವಾ ಪೂರ್ಣ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಬೇಕಾದಷ್ಟು ಬಾರಿ ಕೇಳಬಹುದು.'
+              : 'Replay any step or the full process as often as you need.'}
+          </p>
 
           <div className="space-y-4">
             {steps.map((step, idx) => (
@@ -174,7 +221,16 @@ export const ApplicationGuidePage: React.FC<ApplicationGuidePageProps> = ({
                 <div className="w-6 h-6 rounded-lg bg-[#F7F8F3] border border-slate-300 text-[#173F2B] flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                   {idx + 1}
                 </div>
-                <p className="text-xs text-slate-700 leading-relaxed pt-0.5">{step}</p>
+                <p className="flex-1 text-xs text-slate-700 leading-relaxed pt-0.5">{step}</p>
+                <button
+                  type="button"
+                  onClick={() => speakText(`${isKannada ? `ಹಂತ ${idx + 1}` : `Step ${idx + 1}`}. ${step}`)}
+                  className="read-aloud-button inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors"
+                  aria-label={isKannada ? `${idx + 1}ನೇ ಹಂತವನ್ನು ಕೇಳಿ` : `Listen to step ${idx + 1}`}
+                  title={isKannada ? 'ಈ ಹಂತವನ್ನು ಮತ್ತೆ ಕೇಳಿ' : 'Replay this step'}
+                >
+                  <Volume2 className="h-4 w-4" aria-hidden="true" />
+                </button>
               </div>
             ))}
           </div>

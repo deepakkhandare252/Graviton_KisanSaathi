@@ -35,9 +35,50 @@
       "accountStatus": "ACTIVE",
       "timezone": "Asia/Kolkata",
       "smsRemindersEnabled": false
+    },
+    {
+      "id": "usr_e3bce90b-ce5",
+      "username": "ghrg",
+      "fullName": "fhh",
+      "phoneNumber": "+918431632871",
+      "phoneVerified": false,
+      "preferredLanguage": "kn",
+      "district": "Uttara Kannada (Karwar)",
+      "timezone": "Asia/Kolkata",
+      "smsRemindersEnabled": false,
+      "accountStatus": "PENDING_VERIFICATION",
+      "createdAt": "2026-11-13T20:42:48.619Z",
+      "updatedAt": "2026-11-13T20:43:10.277Z",
+      "passwordHash": "a3b093b6a44239764e13de92584fea39b70dc640e45c7c2c2b6be1fdce454f580c6299778302f05aca4a066c46ebacfee64fd0ce77b681a023ae8b83bacd560d",
+      "salt": "4d9fdfdc05f8556d98555cae4db8810b"
     }
   ],
-  "otpVerifications": [],
+  "otpVerifications": [
+    {
+      "id": "otp_5a8233de-3da",
+      "phoneNumber": "+918564531215",
+      "otpHash": "5065b403b56020f12d5a6d3b0e58954da3f7904adb262761465eb748dc6ccc98",
+      "otpSalt": "56aacdae2b16d51c3e9f36f7e14a139b",
+      "purpose": "REGISTRATION",
+      "expiresAt": "2026-11-13T20:47:48.622Z",
+      "verifiedAt": null,
+      "invalidatedAt": null,
+      "attempts": 0,
+      "createdAt": "2026-11-13T20:42:48.622Z"
+    },
+    {
+      "id": "otp_21e4284d-f44",
+      "phoneNumber": "+918431632871",
+      "otpHash": "3a24a2cf0be2cd76f2d8947383086763208fdd9caf356127b7c62c23d8f1b94e",
+      "otpSalt": "bc6aa8c734b4a7cb2e267cb5051a5a0b",
+      "purpose": "REGISTRATION",
+      "expiresAt": "2026-11-13T20:48:10.278Z",
+      "verifiedAt": null,
+      "invalidatedAt": null,
+      "attempts": 0,
+      "createdAt": "2026-11-13T20:43:10.278Z"
+    }
+  ],
   "savedSchemes": [
     {
       "id": "saved_1",
@@ -70,7 +111,8 @@
         3,
         1
       ],
-      "lastReminderSentAt": "2026-11-13T11:38:06.059Z"
+      "lastReminderSentAt": "2026-11-13T11:38:06.059Z",
+      "reminderAcknowledgedAt": "2026-11-14T02:00:21.289Z"
     },
     {
       "id": "saved_mig_raitha-vidya-nidhi",
@@ -165,6 +207,35 @@
         }
       ],
       "schemeNameSnapshot": "PM-KISAN Samman Nidhi & Karnataka Raitha Siri"
+    },
+    {
+      "id": "app_3e4170ad-a07",
+      "userId": "user_seed_karnataka",
+      "schemeId": "pmfby-samrakshane",
+      "schemeNameSnapshot": "Pradhan Mantri Fasal Bima Yojana (Samrakshane)",
+      "status": "PREPARING",
+      "applicationDate": "2026-11-14T02:07:52.328Z",
+      "appliedThroughPortal": "https://samrakshane.karnataka.gov.in",
+      "readinessSnapshot": {
+        "readyCount": 0,
+        "totalMandatory": 3,
+        "percentage": 0
+      },
+      "eligibilitySnapshot": {
+        "status": "ELIGIBLE",
+        "evaluatedAt": "2026-11-14T02:07:52.317Z"
+      },
+      "createdAt": "2026-11-14T02:07:52.328Z",
+      "updatedAt": "2026-11-14T02:07:52.328Z",
+      "timeline": [
+        {
+          "id": "time_7e525ccf",
+          "applicationId": "app_3e4170ad-a07",
+          "status": "PREPARING",
+          "note": "Application tracked in Kisan Scheme Saathi",
+          "timestamp": "2026-11-14T02:07:52.328Z"
+        }
+      ]
     }
   ],
   "notifications": [
@@ -180,9 +251,9 @@
       "type": "DEADLINE_REMINDER",
       "urgency": "URGENT",
       "thresholdDays": 3,
-      "isRead": false,
+      "isRead": true,
       "createdAt": "2026-11-13T11:38:06.059Z",
-      "readAt": null
+      "readAt": "2026-11-13T19:53:27.137Z"
     },
     {
       "id": "ntf_e414c103-671",
@@ -196,9 +267,9 @@
       "type": "DEADLINE_REMINDER",
       "urgency": "APPROACHING",
       "thresholdDays": 30,
-      "isRead": false,
+      "isRead": true,
       "createdAt": "2026-11-13T11:38:06.060Z",
-      "readAt": null
+      "readAt": "2026-11-13T19:53:27.137Z"
     },
     {
       "id": "ntf_0b2cc236-75d",
@@ -212,9 +283,9 @@
       "type": "DEADLINE_REMINDER",
       "urgency": "FAR",
       "thresholdDays": 30,
-      "isRead": false,
+      "isRead": true,
       "createdAt": "2026-11-13T11:38:06.060Z",
-      "readAt": null
+      "readAt": "2026-11-13T19:53:27.137Z"
     }
   ],
   "reminderDispatchLogs": [

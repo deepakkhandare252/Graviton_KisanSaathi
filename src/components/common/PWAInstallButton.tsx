@@ -10,7 +10,7 @@ export const PWAInstallButton: React.FC = () => {
 
   if (isInstalled) {
     return (
-      <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[#238B57] font-medium">
+      <span className="hidden 2xl:inline-flex items-center gap-1.5 text-xs text-[#238B57] font-medium">
         <Check className="w-3.5 h-3.5" />
         {language === 'kn' ? 'ಆ್ಯಪ್ ಇನ್‌ಸ್ಟಾಲ್ ಆಗಿದೆ' : 'App Installed'}
       </span>
@@ -21,11 +21,11 @@ export const PWAInstallButton: React.FC = () => {
     return (
       <button
         onClick={install}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#173F2B] text-white hover:bg-[#238B57] transition-colors whitespace-nowrap shrink-0 shadow-sm"
+        className="pwa-install-button inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-xl bg-[#173F2B] px-2.5 text-xs font-semibold text-white hover:bg-[#238B57] transition-colors whitespace-nowrap shrink-0 shadow-sm sm:px-3"
         aria-label="Install Kisan Scheme Saathi Application"
       >
         <Download className="w-3.5 h-3.5 text-[#B9E769]" />
-        {t('nav.installApp')}
+        <span className="hidden 2xl:inline">{t('nav.installApp')}</span>
       </button>
     );
   }
@@ -35,10 +35,10 @@ export const PWAInstallButton: React.FC = () => {
       <>
         <button
           onClick={() => setShowIOSGuide(true)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-[#CBD5E1] bg-white text-[#173F2B] hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0"
+          className="pwa-install-button inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-xl border border-[#CBD5E1] bg-white px-2.5 text-xs font-semibold text-[#173F2B] hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 sm:px-3"
         >
           <Download className="w-3.5 h-3.5 text-[#238B57]" />
-          {language === 'kn' ? 'ಆಪಲ್‌ನಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್' : 'Install on iOS'}
+          <span className="hidden 2xl:inline">{language === 'kn' ? 'ಆಪಲ್‌ನಲ್ಲಿ ಇನ್‌ಸ್ಟಾಲ್' : 'Install on iOS'}</span>
         </button>
 
         {showIOSGuide && (

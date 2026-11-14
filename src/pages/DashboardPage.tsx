@@ -11,7 +11,6 @@ import {
   X,
   ArrowRight,
   SlidersHorizontal,
-  Sparkles,
   FileText,
   Clock
 } from 'lucide-react';
@@ -163,16 +162,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           <button
             type="button"
             onClick={() => onNavigate('saved')}
-            className="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors cursor-pointer"
+            className="button-secondary px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors cursor-pointer"
           >
             {t('nav.savedSchemes')}
           </button>
           <button
             type="button"
             onClick={() => onNavigate('questionnaire')}
-            className="px-4 py-2 rounded-xl bg-[#173F2B] text-white text-xs font-semibold hover:bg-[#238B57] transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
+            className="button-primary px-4 py-2 rounded-xl bg-[#173F2B] text-white text-xs font-semibold hover:bg-[#238B57] transition-colors flex items-center gap-1.5 cursor-pointer shadow-sm"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#B9E769]" />
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#B9E769]" />
             <span>{t('nav.findMySchemes')}</span>
           </button>
         </div>

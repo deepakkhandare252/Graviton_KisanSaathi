@@ -11,11 +11,15 @@ import {
   CheckCheck,
   Clock,
   AlertTriangle,
-  LayoutDashboard
+  LayoutDashboard,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
+import { AppNotification } from '../../types/auth';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 import { PWAInstallButton } from './PWAInstallButton';
 
 interface HeaderProps {
@@ -25,6 +29,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   const { language, toggleLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const {
     user,
     isAuthenticated,
@@ -38,7 +43,31 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [latestNotificationPopup, setLatestNotificationPopup] = useState<AppNotification | null>(null);
   const notifRef = useRef<HTMLDivElement>(null);
+  const lastPopupNotificationId = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!isAuthenticated || notifications.length === 0) {
+      lastPopupNotificationId.current = null;
+      setLatestNotificationPopup(null);
+      return;
+    }
+
+    const latestNotification = notifications.reduce((latest, notification) =>
+      Date.parse(notification.createdAt) > Date.parse(latest.createdAt) ? notification : latest
+    );
+    if (latestNotification.id !== lastPopupNotificationId.current) {
+      lastPopupNotificationId.current = latestNotification.id;
+      setLatestNotificationPopup(latestNotification);
+    }
+  }, [isAuthenticated, notifications]);
+
+  useEffect(() => {
+    if (!latestNotificationPopup) return;
+    const timeoutId = window.setTimeout(() => setLatestNotificationPopup(null), 5000);
+    return () => window.clearTimeout(timeoutId);
+  }, [latestNotificationPopup?.id]);
 
   useEffect(() => {
     const handleOutside = (e: MouseEvent) => {
@@ -90,9 +119,9 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#F7F8F3]/95 backdrop-blur-md border-b border-[#E2E8F0] transition-colors">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2 sm:gap-3 h-16">
+    <header className="app-header sticky top-0 z-40 bg-[#F7F8F3]/95 backdrop-blur-md border-b border-[#E2E8F0] transition-colors">
+      <div className="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-3 sm:gap-4 h-20 sm:h-24">
           {/* Zone 1: Brand Wordmark */}
           <div className="flex items-center gap-2 min-w-0 shrink-0">
             <button
@@ -100,24 +129,25 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
               className="text-left group flex items-center gap-1.5 sm:gap-2 cursor-pointer focus:outline-none"
               aria-label="Kisan Scheme Saathi Home"
             >
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-[#173F2B] flex items-center justify-center text-[#B9E769] font-bold text-base sm:text-lg shadow-sm shrink-0">
-                K
-              </div>
-              <span className="text-sm sm:text-base font-bold tracking-tight text-[#173F2B] whitespace-nowrap">
-                {language === 'kn' ? 'ಕಿಸಾನ್ ಸ್ಕೀಮ್ ಸಾಥಿ' : 'Kisan Scheme Saathi'}
+              <span className="brand-logo app-brand-logo h-14 w-20 shrink-0 p-0.5 sm:h-16 sm:w-24 2xl:h-20 2xl:w-32">
+                <img
+                  src="/kisan-scheme-saathi-logo.png"
+                  alt="Kisan Scheme Saathi"
+                  className="h-full w-full object-contain"
+                />
               </span>
             </button>
           </div>
 
           {/* Zone 2: Clean Single-Line Nav Links */}
-          <nav className="hidden xl:flex items-center gap-3.5 text-xs font-semibold text-slate-700">
+          <nav className="hidden 2xl:flex items-center gap-4 text-sm font-semibold text-slate-700">
             {desktopNavItems.map((item) => {
               const isActive = currentView === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`relative py-1.5 flex items-center gap-1 whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
+                  className={`relative py-2 flex items-center gap-2 whitespace-nowrap shrink-0 transition-colors cursor-pointer ${
                     isActive
                       ? 'text-[#173F2B] font-bold'
                       : 'text-slate-600 hover:text-[#173F2B]'
@@ -138,8 +168,23 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           </nav>
 
           {/* Zone 3: Utilities + Notification Bell + Auth + Primary CTA */}
-          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <PWAInstallButton />
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="theme-toggle inline-flex items-center justify-center rounded-xl border transition-colors cursor-pointer"
+              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              aria-pressed={theme === 'dark'}
+              title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4" aria-hidden="true" />
+              ) : (
+                <Moon className="w-4 h-4" aria-hidden="true" />
+              )}
+            </button>
 
             {/* Notification Bell (Visible when authenticated) */}
             {isAuthenticated && (
@@ -147,7 +192,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                 <button
                   type="button"
                   onClick={() => setNotifOpen((prev) => !prev)}
-                  className={`relative p-2 rounded-lg border transition-colors cursor-pointer ${
+                  className={`header-icon-button relative inline-flex items-center justify-center rounded-xl border transition-colors cursor-pointer ${
                     notifOpen
                       ? 'bg-emerald-50 border-[#238B57] text-[#173F2B]'
                       : 'bg-white border-[#CBD5E1] text-slate-600 hover:text-[#173F2B] hover:bg-slate-50'
@@ -170,7 +215,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 4, scale: 0.98 }}
                       transition={{ duration: 0.12 }}
-                      className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-slate-200 shadow-2xl overflow-hidden z-50"
+                      className="fixed left-4 right-4 top-20 z-50 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96"
                     >
                       <div className="px-4 py-3 bg-[#173F2B] text-white flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -260,7 +305,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             {/* Settings & Offline Icon Button */}
             <button
               onClick={() => handleNavClick('settings')}
-              className={`hidden sm:inline-flex p-2 rounded-lg border transition-colors cursor-pointer ${
+              className={`header-icon-button hidden sm:inline-flex items-center justify-center rounded-xl border transition-colors cursor-pointer ${
                 currentView === 'settings'
                   ? 'bg-emerald-50 border-[#238B57] text-[#173F2B]'
                   : 'bg-white border-[#CBD5E1] text-slate-600 hover:text-[#173F2B] hover:bg-slate-50'
@@ -274,18 +319,19 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             {/* Language Switcher */}
             <button
               onClick={toggleLanguage}
-              className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-lg border border-[#CBD5E1] bg-white text-[#173F2B] hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
+              className="header-icon-button inline-flex items-center justify-center gap-1.5 rounded-xl border border-[#CBD5E1] bg-white px-2.5 text-xs font-semibold text-[#173F2B] hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
               aria-label="Switch Language between English and Kannada"
+              title="Switch language"
             >
-              <Globe className="w-3.5 h-3.5 text-[#238B57] shrink-0" />
-              <span>{language === 'en' ? 'ಕನ್ನಡ' : 'English'}</span>
+              <Globe className="h-4 w-4 text-[#238B57] shrink-0" />
+              <span className="hidden 2xl:inline">{language === 'en' ? 'ಕನ್ನಡ' : 'English'}</span>
             </button>
 
             {/* Auth Button or User Profile Button */}
             {isAuthenticated && user ? (
               <button
                 onClick={() => handleNavClick('profile')}
-                className={`inline-flex items-center gap-1.5 px-2 sm:px-2.5 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer shadow-xs shrink-0 ${
+                className={`header-icon-button hidden sm:inline-flex items-center gap-1.5 px-2.5 text-xs font-semibold rounded-xl border transition-colors cursor-pointer shadow-xs shrink-0 ${
                   currentView === 'profile'
                     ? 'bg-emerald-50 border-[#238B57] text-[#173F2B]'
                     : 'bg-white border-slate-300 text-slate-800 hover:bg-slate-50'
@@ -294,31 +340,32 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                 aria-label={user.fullName}
               >
                 <User className="w-3.5 h-3.5 text-[#238B57] shrink-0" />
-                <span className="hidden sm:inline max-w-[96px] truncate">{user.fullName}</span>
+                <span className="hidden 2xl:inline max-w-[96px] truncate">{user.fullName}</span>
               </button>
             ) : (
               <button
                 onClick={() => handleNavClick('login')}
-                className="inline-flex items-center gap-1 px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs font-semibold rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
+                className="hidden sm:inline-flex min-h-11 items-center gap-1 px-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 cursor-pointer shadow-xs"
               >
                 <LogIn className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-                <span>{t('nav.login')}</span>
+                <span className="hidden 2xl:inline">{t('nav.login')}</span>
               </button>
             )}
 
             {/* Primary Action Button */}
             <button
               onClick={() => handleNavClick('questionnaire')}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#173F2B] text-white hover:bg-[#238B57] transition-colors whitespace-nowrap shrink-0 shadow-sm cursor-pointer"
+              className="button-primary header-icon-button hidden xl:inline-flex 2xl:hidden items-center justify-center rounded-xl bg-[#173F2B] text-white hover:bg-[#238B57] transition-colors shrink-0 shadow-sm cursor-pointer"
+              aria-label={t('nav.findMySchemes')}
+              title={t('nav.findMySchemes')}
             >
               <Sparkles className="w-3.5 h-3.5 text-[#B9E769]" />
-              <span>{t('nav.findMySchemes')}</span>
             </button>
 
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-1.5 sm:p-2 text-slate-700 hover:text-[#173F2B] rounded-lg cursor-pointer shrink-0"
+              className="header-icon-button 2xl:hidden inline-flex items-center justify-center rounded-xl text-slate-700 hover:text-[#173F2B] cursor-pointer shrink-0"
               aria-label="Open mobile navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -329,12 +376,12 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-[#E2E8F0] bg-[#F7F8F3] px-4 pt-3 pb-6 space-y-2 shadow-lg">
+        <div className="mobile-nav-drawer 2xl:hidden max-h-[calc(100vh-5rem)] overflow-y-auto overscroll-contain border-t px-4 pt-3 pb-6 space-y-2 shadow-lg">
           {mobileNavItems.map((item) => (
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`flex items-center justify-between w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`mobile-nav-link flex min-h-11 items-center justify-between w-full text-left px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
                 currentView === item.id
                   ? 'bg-[#173F2B] text-white font-semibold'
                   : 'text-slate-700 hover:bg-slate-100'
@@ -353,7 +400,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             <div className="pt-2 border-t border-slate-200 flex gap-2">
               <button
                 onClick={() => handleNavClick('profile')}
-                className="flex-1 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 text-center"
+                className="flex-1 min-h-11 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 text-center"
               >
                 {t('nav.profile')}
               </button>
@@ -362,7 +409,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
                   await logout();
                   handleNavClick('landing');
                 }}
-                className="flex-1 py-2 text-xs font-semibold rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-center"
+                className="flex-1 min-h-11 py-2 text-xs font-semibold rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-center"
               >
                 {t('nav.logout')}
               </button>
@@ -371,13 +418,13 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
             <div className="pt-2 border-t border-slate-200 flex gap-2">
               <button
                 onClick={() => handleNavClick('login')}
-                className="flex-1 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 text-center"
+                className="flex-1 min-h-11 py-2 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 text-center"
               >
                 {t('nav.login')}
               </button>
               <button
                 onClick={() => handleNavClick('register')}
-                className="flex-1 py-2 text-xs font-semibold rounded-lg bg-[#238B57] text-white text-center"
+                className="flex-1 min-h-11 py-2 text-xs font-semibold rounded-lg bg-[#238B57] text-white text-center"
               >
                 {t('nav.register')}
               </button>
@@ -387,7 +434,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           <div className="pt-2">
             <button
               onClick={() => handleNavClick('questionnaire')}
-              className="w-full py-2.5 rounded-lg bg-[#173F2B] text-white text-xs font-semibold text-center flex items-center justify-center gap-2"
+              className="button-primary w-full py-2.5 rounded-lg bg-[#173F2B] text-white text-xs font-semibold text-center flex items-center justify-center gap-2"
             >
               <Sparkles className="w-4 h-4 text-[#B9E769]" />
               {t('nav.findMySchemes')}
@@ -395,6 +442,49 @@ export const Header: React.FC<HeaderProps> = ({ currentView, onNavigate }) => {
           </div>
         </div>
       )}
+
+      <AnimatePresence>
+        {latestNotificationPopup && (
+          <motion.aside
+            role="status"
+            aria-live="polite"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -6, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="latest-notification-popup fixed right-4 top-20 sm:top-24 z-[60] w-[calc(100%-2rem)] max-w-sm rounded-2xl border p-4 shadow-xl"
+          >
+            <div className="flex items-start gap-3">
+              <span className="notification-popup-icon flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+                <Bell className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-xs font-semibold uppercase tracking-wide text-secondary">
+                  {language === 'kn' ? 'ಹೊಸ ಅಧಿಸೂಚನೆ' : 'Latest notification'}
+                </p>
+                <p className="mt-1 text-sm font-bold text-primary">
+                  {language === 'kn'
+                    ? latestNotificationPopup.titleKn
+                    : latestNotificationPopup.titleEn}
+                </p>
+                <p className="mt-1 text-sm leading-relaxed text-secondary">
+                  {language === 'kn'
+                    ? latestNotificationPopup.messageKn
+                    : latestNotificationPopup.messageEn}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLatestNotificationPopup(null)}
+                className="notification-popup-close inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors"
+                aria-label={language === 'kn' ? 'ಮುಚ್ಚಿ' : 'Dismiss notification'}
+              >
+                <X className="h-4 w-4" aria-hidden="true" />
+              </button>
+            </div>
+          </motion.aside>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

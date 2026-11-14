@@ -242,9 +242,9 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
         disabled={!text.trim()}
         aria-label={ariaLabel}
         title={ariaLabel}
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-[#238B57] hover:bg-emerald-50 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+        className="read-aloud-button inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-colors disabled:cursor-not-allowed disabled:opacity-40 cursor-pointer"
       >
-        <Volume2 className="w-4 h-4" aria-hidden="true" />
+        <Volume2 className="w-[18px] h-[18px]" aria-hidden="true" />
       </button>
     );
   };
@@ -354,7 +354,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
         </div>
 
         <button
-          onClick={loadSampleProfile}
+          onClick={() => {
+            speakSelection(t('questionnaire.quickLoad'));
+            loadSampleProfile();
+          }}
           className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 bg-white text-[#173F2B] hover:bg-slate-50 transition-colors whitespace-nowrap shrink-0 shadow-xs cursor-pointer"
           title={t('questionnaire.quickLoadDesc')}
         >
@@ -462,7 +465,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                 ))}
               </select>
               <details className="mt-2">
-                <summary className="cursor-pointer text-[11px] font-medium text-[#238B57]">
+                <summary
+                  onClick={() => speakSelection(t('questionnaire.listenOptions'))}
+                  className="cursor-pointer text-[11px] font-medium text-[#238B57]"
+                >
                   {t('questionnaire.listenOptions')}
                 </summary>
                 <div className="mt-2 max-h-56 space-y-1 overflow-y-auto rounded-lg border border-slate-200 p-2">
@@ -558,7 +564,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
                 ))}
               </select>
               <details className="mt-2">
-                <summary className="cursor-pointer text-[11px] font-medium text-[#238B57]">
+                <summary
+                  onClick={() => speakSelection(t('questionnaire.listenOptions'))}
+                  className="cursor-pointer text-[11px] font-medium text-[#238B57]"
+                >
                   {t('questionnaire.listenOptions')}
                 </summary>
                 <div className="mt-2 space-y-1 rounded-lg border border-slate-200 p-2">
@@ -981,7 +990,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
           {step > 1 ? (
             <button
               type="button"
-              onClick={handlePrev}
+              onClick={() => {
+                speakSelection(t('questionnaire.prevStep'));
+                handlePrev();
+              }}
               className="inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -994,7 +1006,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
           {step < 4 ? (
             <button
               type="button"
-              onClick={handleNext}
+              onClick={() => {
+                speakSelection(t('questionnaire.nextStep'));
+                handleNext();
+              }}
               className="inline-flex items-center gap-1.5 px-6 py-2.5 text-xs font-semibold rounded-xl bg-[#173F2B] text-white hover:bg-[#238B57] transition-colors cursor-pointer shadow-sm"
             >
               <span>{t('questionnaire.nextStep')}</span>
@@ -1003,7 +1018,10 @@ export const QuestionnairePage: React.FC<QuestionnairePageProps> = ({
           ) : (
             <button
               type="button"
-              onClick={handleComplete}
+              onClick={() => {
+                speakSelection(t('questionnaire.evaluateCta'));
+                handleComplete();
+              }}
               className="inline-flex items-center gap-2 px-6 py-3 text-xs font-bold rounded-xl bg-[#238B57] text-white hover:bg-[#173F2B] transition-colors cursor-pointer shadow-md"
             >
               <Sparkles className="w-4 h-4 text-[#B9E769]" />

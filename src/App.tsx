@@ -5,6 +5,7 @@ import { queryClient } from './lib/queryClient';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { ToastProvider } from './contexts/ToastContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { OfflineBanner } from './components/common/OfflineBanner';
@@ -288,11 +289,12 @@ export default function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MotionConfig reducedMotion="user">
-        <LanguageProvider>
-          <AuthProvider>
-            <ToastProvider>
-              <div className="min-h-screen flex flex-col bg-[#F7F8F3] text-[#17251D] selection:bg-[#B9E769] selection:text-[#173F2B]">
+      <ThemeProvider>
+        <MotionConfig reducedMotion="user">
+          <LanguageProvider>
+            <AuthProvider>
+              <ToastProvider>
+                <div className="app-frame min-h-screen flex flex-col">
                 {/* Offline / Connectivity Transition & SW Update Banner */}
                 <OfflineBanner />
 
@@ -431,11 +433,12 @@ export default function App() {
 
                 {/* Footer */}
                 <Footer />
-              </div>
-            </ToastProvider>
-          </AuthProvider>
-        </LanguageProvider>
-      </MotionConfig>
+                </div>
+              </ToastProvider>
+            </AuthProvider>
+          </LanguageProvider>
+        </MotionConfig>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }
